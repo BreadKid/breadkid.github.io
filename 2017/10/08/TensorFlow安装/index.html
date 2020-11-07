@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+<!--google站点收录-->
+<meta name="google-site-verification" content="2mgfoiMfNAAD7ljwd0_En9UK2NGhzaLDecraeAvpUwc" />
+<!--百度站点收录-->
+<meta name="baidu-site-verification" content="dKJQzmkOPC" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/icon-1024.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.1/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"breadykid.com","root":"/","scheme":"Mist","version":"8.0.2","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}};
+  </script>
+
+  <meta name="description" content="TF的安装与使用样例">
+<meta property="og:type" content="article">
+<meta property="og:title" content="TensorFlow安装">
+<meta property="og:url" content="http://breadykid.com/2017/10/08/TensorFlow%E5%AE%89%E8%A3%85/index.html">
+<meta property="og:site_name" content="Breadykid">
+<meta property="og:description" content="TF的安装与使用样例">
+<meta property="og:locale">
+<meta property="article:published_time" content="2017-10-08T04:11:03.000Z">
+<meta property="article:modified_time" content="2020-11-07T06:59:13.248Z">
+<meta property="article:author" content="Joyce Lau">
+<meta property="article:tag" content="tensorflow">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://breadykid.com/2017/10/08/TensorFlow%E5%AE%89%E8%A3%85/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
+  };
+</script>
+
+  <title>TensorFlow安装 | Breadykid</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Breadykid</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">杂七杂八</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section">Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/me" rel="section">About</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <section class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E5%AE%89%E8%A3%85"><span class="nav-number">1.</span> <span class="nav-text">1. 安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-ubuntu%E5%AE%89%E8%A3%85"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 ubuntu安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-Mac-OS%E5%AE%89%E8%A3%85"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 Mac OS安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-%E4%BD%BF%E7%94%A8%E5%AE%B9%E5%99%A8VirtualEnv%E5%AE%89%E8%A3%85"><span class="nav-number">1.3.</span> <span class="nav-text">1.3 使用容器VirtualEnv安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-%E4%BB%8E%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85"><span class="nav-number">1.4.</span> <span class="nav-text">1.4 从源码安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-Python-Example"><span class="nav-number">1.5.</span> <span class="nav-text">2.2 Python Example</span></a></li></ol></li></ol></div>
+        </section>
+        <!--/noindex-->
+
+        <section class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Joyce Lau</p>
+  <div class="site-description" itemprop="description">Dream what I dream</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">11</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">categories</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/breadkid" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;breadkid" rel="noopener" target="_blank">GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/breadykid@gmail.com" title="E-Mail → breadykid@gmail.com">E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="http://coderwu.cn/" title="http:&#x2F;&#x2F;coderwu.cn&#x2F;" rel="noopener" target="_blank">CoderWu</a>
+        </li>
+    </ul>
+  </div>
+
+        </section>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+      
+
+      
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://breadykid.com/2017/10/08/TensorFlow%E5%AE%89%E8%A3%85/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Joyce Lau">
+      <meta itemprop="description" content="Dream what I dream">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Breadykid">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          TensorFlow安装
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2017-10-08 12:11:03" itemprop="dateCreated datePublished" datetime="2017-10-08T12:11:03+08:00">2017-10-08</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2020-11-07 14:59:13" itemprop="dateModified" datetime="2020-11-07T14:59:13+08:00">2020-11-07</time>
+      </span>
+
+  
+</div>
+
+            <div class="post-description">TF的安装与使用样例</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p><a target="_blank" rel="noopener" href="https://github.com/BreadKid/easy_tensorflow">read more on github</a></p>
+<h2 id="1-安装"><a href="#1-安装" class="headerlink" title="1. 安装"></a>1. 安装</h2><h3 id="1-1-ubuntu安装"><a href="#1-1-ubuntu安装" class="headerlink" title="1.1 ubuntu安装"></a>1.1 ubuntu安装</h3><h3 id="1-2-Mac-OS安装"><a href="#1-2-Mac-OS安装" class="headerlink" title="1.2 Mac OS安装"></a>1.2 Mac OS安装</h3><p>TensorFlow Python API 依赖 Python 2.7 版本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">brew install python2.7</span><br><span class="line">pip install https:&#x2F;&#x2F;storage.googleapis.com&#x2F;tensorflow&#x2F;mac&#x2F;tensorflow-0.5.0-py2-none-any.whl</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-3-使用容器VirtualEnv安装"><a href="#1-3-使用容器VirtualEnv安装" class="headerlink" title="1.3 使用容器VirtualEnv安装"></a>1.3 使用容器VirtualEnv安装</h3><p><em>推荐使用 virtualenv 创建一个隔离的容器, 来安装 TensorFlow. 这样做能使排查安装问题变得更容易</em></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># 在 Mac 上:</span><br><span class="line">sudo easy_install pip  # 如果还没有安装 pip</span><br><span class="line">sudo pip install --upgrade virtualenv</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>建立一个全新的 virtualenv 环境,将环境建在 ~/tensorflow 目录下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">virtualenv --system-site-packages ~&#x2F;tensorflow</span><br><span class="line">cd ~&#x2F;tensorflow</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>激活 virtualenv</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">source bin&#x2F;activate  # 如果使用 bash</span><br><span class="line">source bin&#x2F;activate.csh  # 如果使用 csh</span><br><span class="line">(tensorflow)$  # 终端提示符应该发生变化</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在 virtualenv 内, 安装 TensorFlow</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">(tensorflow)$ pip install --upgrade &lt;$url_to_binary.whl&gt;</span><br><span class="line"></span><br><span class="line">&lt;$url_to_binary.whl&gt;选择:</span><br><span class="line"># Mac只支持 CPU</span><br><span class="line">https:&#x2F;&#x2F;storage.googleapis.com&#x2F;tensorflow&#x2F;mac&#x2F;tensorflow-0.5.0-py2-none-any.whl</span><br><span class="line"># Linux只支持 CPU</span><br><span class="line">https:&#x2F;&#x2F;storage.googleapis.com&#x2F;tensorflow&#x2F;linux&#x2F;cpu&#x2F;tensorflow-0.5.0-cp27-none-linux_x86_64.whl</span><br><span class="line"># 开启 GPU 支持的版本 (安装该版本的前提是已经安装了 CUDA sdk)</span><br><span class="line">https:&#x2F;&#x2F;storage.googleapis.com&#x2F;tensorflow&#x2F;linux&#x2F;gpu&#x2F;tensorflow-0.5.0-cp27-none-linux_x86_64.whl</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>运行 TensorFlow 程序</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(tensorflow)$ cd tensorflow&#x2F;models&#x2F;image&#x2F;mnist</span><br><span class="line">(tensorflow)$ python convolutional.py</span><br></pre></td></tr></table></figure>
+<p>or</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">python</span><br><span class="line">import tensorflow as tf</span><br><span class="line">hello &#x3D; tf.constant(&#39;Hello, TensorFlow!&#39;)</span><br><span class="line">sess &#x3D; tf.Session()</span><br><span class="line">print sess.run(hello)</span><br><span class="line">Hello, TensorFlow!</span><br></pre></td></tr></table></figure></li>
+<li><p>当使用完 TensorFlow</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 停用 virtualenv</span><br><span class="line">(tensorflow)$ deactivate</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="1-4-从源码安装"><a href="#1-4-从源码安装" class="headerlink" title="1.4 从源码安装"></a>1.4 从源码安装</h3><ul>
+<li><p>clone TensorFlow 仓库</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># --recurse-submodules 参数是必须得, 用于获取 TesorFlow 依赖的 protobuf 库</span><br><span class="line">git clone --recurse-submodules https:&#x2F;&#x2F;github.com&#x2F;tensorflow&#x2F;tensorflow</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Mac OS安装<br>所需依赖：<a target="_blank" rel="noopener" href="https://bazel.build/versions/master/docs/install-os-x.html#install-on-mac-os-x-homebrew">Bazel</a>, <a href="">SWIG</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">  brew install bazel</span><br><span class="line">  brew install swig</span><br><span class="line">  &#96;&#96;&#96;   </span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">## 2. 栗子</span><br><span class="line">### 2.1 For Java</span><br><span class="line">[example](https:&#x2F;&#x2F;github.com&#x2F;tensorflow&#x2F;tensorflow&#x2F;tree&#x2F;master&#x2F;tensorflow&#x2F;java)</span><br><span class="line"></span><br><span class="line">JDK1.7</span><br><span class="line"></span><br><span class="line">* Start Using Apache Maven</span><br><span class="line">  </span><br><span class="line">  - 创建Maven工程</span><br><span class="line">  - 添加依赖</span><br><span class="line">  </span><br></pre></td></tr></table></figure>
+  <dependencies>
+    <dependency>
+      <groupId>org.tensorflow</groupId>
+      <artifactId>tensorflow</artifactId>
+      <version>1.1.0-rc1</version>
+    </dependency>
+  </dependencies>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">- 下载样例代码添加至&#96;&#96;&#96;src&#x2F;main&#x2F;java&#x2F;org&#x2F;tensorflow&#x2F;examples&#96;&#96;&#96;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+  mkdir -p src/main/java/org/tensorflow/examples
+  curl -L "https://raw.githubusercontent.com/tensorflow/tensorflow/master/tensorflow/java/src/main/java/org/tensorflow/examples/LabelImage.java" -o src/main/java/org/tensorflow/examples/LabelImage.java
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">  </span><br><span class="line">- 编译</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+  mvn compile exec:java
+  ```
+</li>
+<li><p>Start Using java and javac</p>
+</li>
+</ul>
+<h3 id="2-2-Python-Example"><a href="#2-2-Python-Example" class="headerlink" title="2.2 Python Example"></a>2.2 Python Example</h3>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="followme">
+  <span>Welcome to my other publishing channels</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="/images/breadyhub.jpg">
+          <span class="icon">
+            <i class=""></i>
+          </span>
+
+          <span class="label">WeChat</span>
+        </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/tensorflow/" rel="tag"># tensorflow</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2017/01/17/git-config/" rel="prev" title="在本机上同时使用GitHub与GitLab">
+                  <i class="fa fa-chevron-left"></i> 在本机上同时使用GitHub与GitLab
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2018/02/12/nginx/" rel="next" title="nginx">
+                  nginx <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+      
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      
+
+      
+
+<div class="copyright">
+  
+  &copy; 2016 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">true</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a>
+  </div>
+
+<div class="powered-by">
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <i class="fa fa-user-md"></i>
+    <span id="busuanzi_container_site_uv">
+        本站访客数:<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span id="busuanzi_container_site_pv">
+        本站访问量<span id="busuanzi_value_site_pv"></span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
