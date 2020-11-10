@@ -158,6 +158,20 @@
   </url>
   
   <url>
+    <loc>http://breadykid.com/tags/git/</loc>
+    <lastmod>2020-11-10</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://breadykid.com/tags/config/</loc>
+    <lastmod>2020-11-10</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>http://breadykid.com/tags/mac/</loc>
     <lastmod>2020-11-10</lastmod>
     <changefreq>daily</changefreq>
@@ -180,20 +194,6 @@
   
   <url>
     <loc>http://breadykid.com/tags/nginx/</loc>
-    <lastmod>2020-11-10</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://breadykid.com/tags/git/</loc>
-    <lastmod>2020-11-10</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://breadykid.com/tags/config/</loc>
     <lastmod>2020-11-10</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
