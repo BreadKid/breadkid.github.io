@@ -1,6 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>TensorFlow安装</title>
+    <url>/2017/10/08/TensorFlow%E5%AE%89%E8%A3%85/</url>
+    <content><![CDATA[<p><a href="https://github.com/BreadKid/easy_tensorflow">read more on github</a></p>
+<h2 id="1-安装"><a href="#1-安装" class="headerlink" title="1. 安装"></a>1. 安装</h2><h3 id="1-1-ubuntu安装"><a href="#1-1-ubuntu安装" class="headerlink" title="1.1 ubuntu安装"></a>1.1 ubuntu安装</h3><h3 id="1-2-Mac-OS安装"><a href="#1-2-Mac-OS安装" class="headerlink" title="1.2 Mac OS安装"></a>1.2 Mac OS安装</h3><p>TensorFlow Python API 依赖 Python 2.7 版本</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">brew install python2.7</span><br><span class="line">pip install https:&#x2F;&#x2F;storage.googleapis.com&#x2F;tensorflow&#x2F;mac&#x2F;tensorflow-0.5.0-py2-none-any.whl</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-3-使用容器VirtualEnv安装"><a href="#1-3-使用容器VirtualEnv安装" class="headerlink" title="1.3 使用容器VirtualEnv安装"></a>1.3 使用容器VirtualEnv安装</h3><p><em>推荐使用 virtualenv 创建一个隔离的容器, 来安装 TensorFlow. 这样做能使排查安装问题变得更容易</em></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 在 Mac 上:</span><br><span class="line">sudo easy_install pip  # 如果还没有安装 pip</span><br><span class="line">sudo pip install --upgrade virtualenv</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>建立一个全新的 virtualenv 环境,将环境建在 ~/tensorflow 目录下</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">virtualenv --system-site-packages ~&#x2F;tensorflow</span><br><span class="line">cd ~&#x2F;tensorflow</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>激活 virtualenv</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">source bin&#x2F;activate  # 如果使用 bash</span><br><span class="line">source bin&#x2F;activate.csh  # 如果使用 csh</span><br><span class="line">(tensorflow)$  # 终端提示符应该发生变化</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在 virtualenv 内, 安装 TensorFlow</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(tensorflow)$ pip install --upgrade &lt;$url_to_binary.whl&gt;</span><br><span class="line"></span><br><span class="line">&lt;$url_to_binary.whl&gt;选择:</span><br><span class="line"># Mac只支持 CPU</span><br><span class="line">https:&#x2F;&#x2F;storage.googleapis.com&#x2F;tensorflow&#x2F;mac&#x2F;tensorflow-0.5.0-py2-none-any.whl</span><br><span class="line"># Linux只支持 CPU</span><br><span class="line">https:&#x2F;&#x2F;storage.googleapis.com&#x2F;tensorflow&#x2F;linux&#x2F;cpu&#x2F;tensorflow-0.5.0-cp27-none-linux_x86_64.whl</span><br><span class="line"># 开启 GPU 支持的版本 (安装该版本的前提是已经安装了 CUDA sdk)</span><br><span class="line">https:&#x2F;&#x2F;storage.googleapis.com&#x2F;tensorflow&#x2F;linux&#x2F;gpu&#x2F;tensorflow-0.5.0-cp27-none-linux_x86_64.whl</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>运行 TensorFlow 程序</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(tensorflow)$ cd tensorflow&#x2F;models&#x2F;image&#x2F;mnist</span><br><span class="line">(tensorflow)$ python convolutional.py</span><br></pre></td></tr></table></figure>
+<p>or</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">python</span><br><span class="line">import tensorflow as tf</span><br><span class="line">hello &#x3D; tf.constant(&#39;Hello, TensorFlow!&#39;)</span><br><span class="line">sess &#x3D; tf.Session()</span><br><span class="line">print sess.run(hello)</span><br><span class="line">Hello, TensorFlow!</span><br></pre></td></tr></table></figure></li>
+<li><p>当使用完 TensorFlow</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 停用 virtualenv</span><br><span class="line">(tensorflow)$ deactivate</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="1-4-从源码安装"><a href="#1-4-从源码安装" class="headerlink" title="1.4 从源码安装"></a>1.4 从源码安装</h3><ul>
+<li><p>clone TensorFlow 仓库</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># --recurse-submodules 参数是必须得, 用于获取 TesorFlow 依赖的 protobuf 库</span><br><span class="line">git clone --recurse-submodules https:&#x2F;&#x2F;github.com&#x2F;tensorflow&#x2F;tensorflow</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Mac OS安装<br>所需依赖：<a href="https://bazel.build/versions/master/docs/install-os-x.html#install-on-mac-os-x-homebrew">Bazel</a>, <a href="">SWIG</a></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">  brew install bazel</span><br><span class="line">  brew install swig</span><br><span class="line">  &#96;&#96;&#96;   </span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">## 2. 栗子</span><br><span class="line">### 2.1 For Java</span><br><span class="line">[example](https:&#x2F;&#x2F;github.com&#x2F;tensorflow&#x2F;tensorflow&#x2F;tree&#x2F;master&#x2F;tensorflow&#x2F;java)</span><br><span class="line"></span><br><span class="line">JDK1.7</span><br><span class="line"></span><br><span class="line">* Start Using Apache Maven</span><br><span class="line">  </span><br><span class="line">  - 创建Maven工程</span><br><span class="line">  - 添加依赖</span><br><span class="line">  </span><br></pre></td></tr></table></figure>
+  <dependencies>
+    <dependency>
+      <groupId>org.tensorflow</groupId>
+      <artifactId>tensorflow</artifactId>
+      <version>1.1.0-rc1</version>
+    </dependency>
+  </dependencies>
+  <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">- 下载样例代码添加至&#96;&#96;&#96;src&#x2F;main&#x2F;java&#x2F;org&#x2F;tensorflow&#x2F;examples&#96;&#96;&#96;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+  mkdir -p src/main/java/org/tensorflow/examples
+  curl -L "https://raw.githubusercontent.com/tensorflow/tensorflow/master/tensorflow/java/src/main/java/org/tensorflow/examples/LabelImage.java" -o src/main/java/org/tensorflow/examples/LabelImage.java
+  <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">  </span><br><span class="line">- 编译</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+  mvn compile exec:java
+  ```
+</li>
+<li><p>Start Using java and javac</p>
+</li>
+</ul>
+<h3 id="2-2-Python-Example"><a href="#2-2-Python-Example" class="headerlink" title="2.2 Python Example"></a>2.2 Python Example</h3>]]></content>
+      <tags>
+        <tag>tensorflow</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>ubuntu服务器部署</title>
+    <url>/2016/02/20/Ubuntu-server/</url>
+    <content><![CDATA[<p>首先，你要有个服务器。。。<br>目前市面上服务器供应商有很多，国内的阿里、国外的AWS、搬瓦工、Vultr、DigitalOcean等等，服务器实例创建完成后开始配置吧。</p>
+<h2 id="Login-Remote-Server"><a href="#Login-Remote-Server" class="headerlink" title="Login Remote Server"></a>Login Remote Server</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ssh username@ip-address</span><br></pre></td></tr></table></figure>
+
+<h2 id="Create-new-User-and-set-its-configuration"><a href="#Create-new-User-and-set-its-configuration" class="headerlink" title="Create new User and set its configuration"></a>Create new User and set its configuration</h2><ul>
+<li><p>在ubuntu权限下设置</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo adduser userName</span><br><span class="line">nsudo visudo</span><br><span class="line">userName ALL&#x3D;(ALL:ALL) ALL</span><br></pre></td></tr></table></figure>
+<p>or <a href="http://www.cyberciti.biz/faq/ubuntu-add-user-to-group/">see this</a></p>
+</li>
+</ul>
+<h2 id="Update-hosts-name"><a href="#Update-hosts-name" class="headerlink" title="Update hosts name"></a>Update hosts name</h2><p>临时变更主机名:“新主机名”可以用任何合法字符串来表示。<br>采用这种方式，新主机名并不保存在系统中，重启系统后主机名将恢复为原先的主机名称。 </p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hostname newName</span><br><span class="line">&#96;&#96;&#96;  </span><br><span class="line"></span><br><span class="line">永久修改主机名:重启系统后，参照上面介绍的快速查看主机名的办法来确认主机名有没有修改成功。  </span><br><span class="line"></span><br><span class="line">存放的是主机名</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>sudo vi /etc/hostname</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">添加newName</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>sudo vi /etc/hosts</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">存放的是域名与ip的对应关系，域名与主机名没有任何关系，你可以为任何一个IP指定任意一个名字</span><br><span class="line"></span><br><span class="line">## 禁止Root进行SSH远程登录</span><br><span class="line">* 修改配置  </span><br><span class="line">将&#96;&#96;&#96;PermitRootLogin yes&#96;&#96;&#96;改为&#96;&#96;&#96;PermitRootLogin no&#96;&#96;&#96;  </span><br><span class="line"></span><br><span class="line">* 重启ssh服务器,使配置变更生效;通过root登陆时，输入密码出现Permission denied, please try again.说明设置成功</span><br></pre></td></tr></table></figure>
+<p>sudo /etc/init.d/ssh restart</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">## pem配置</span><br><span class="line"></span><br><span class="line">* 切换用户  </span><br><span class="line">  在userName用户目录下</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>  su userName<br>  <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">* 创建.ssh</span><br><span class="line"></span><br></pre></td></tr></table></figure><br>  cd ~\nmkdir .ssh<br>  <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">* 添加公匙</span><br><span class="line"></span><br></pre></td></tr></table></figure><br>  touch authorized_keys<br>  vi authorized_keys<br>  <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">  （important：公匙的添加一定要仔细！错一个字母就不匹配，无法登陆！！！）</span><br><span class="line"></span><br><span class="line">配置完成后，可用密匙登陆:ssh -i ~&#x2F;.ssh&#x2F;joyce_ubuntu.pem ubuntu@ip-address</span><br><span class="line"></span><br><span class="line">## OpenJDK 8</span><br><span class="line">* 下载，坑的解决http:&#x2F;&#x2F;askubuntu.com&#x2F;questions&#x2F;464755&#x2F;how-to-install-openjdk-8-on-14-04-lts</span><br><span class="line"></span><br></pre></td></tr></table></figure><br>  sudo add-apt-repository ppa:openjdk-r/ppa<br>  <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">若报错：sudo: add-apt-repository: command not found  </span><br><span class="line">执行：</span><br><span class="line"></span><br></pre></td></tr></table></figure><br>  sudo apt-get install software-properties-common<br>  sudo apt-get update<br>  java -version<br>  <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">  </span><br><span class="line">## Nginx</span><br><span class="line"></span><br></pre></td></tr></table></figure><br>sudo apt-get install nginx<br>sudo service nginx restart<br>service nginx {start|stop|status|restart|reload|configtest|}</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">用root权限起</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>sudo lsof -i:80<br>curl localhost:80<br>netstat -an</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">## Tomcat 8</span><br><span class="line">安装tomcat8 不可安装在系统目录下，安装在用户目录下，系统目录下的操作命令与普通的不一致。  </span><br><span class="line"></span><br><span class="line">* 更新</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>  sudo apt-get update<br>  <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">* 下载(该网站搜索版本http:&#x2F;&#x2F;ftp.riken.jp&#x2F;net&#x2F;apache&#x2F;tomcat&#x2F;tomcat-8&#x2F;)</span><br><span class="line">  </span><br></pre></td></tr></table></figure><br>  wget <a href="http://ftp.riken.jp/net/apache/tomcat/tomcat-8/v8.0.33/bin/apache-tomcat-8.0.33.tar.gz">http://ftp.riken.jp/net/apache/tomcat/tomcat-8/v8.0.33/bin/apache-tomcat-8.0.33.tar.gz</a><br>  <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">* 创建文件夹</span><br><span class="line">  </span><br></pre></td></tr></table></figure><br>  mkdir demo<br>  <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">* 解压至目标文件夹</span><br><span class="line">  </span><br></pre></td></tr></table></figure><br>  tar -zxvf ~/apache-tomcat-8.0.33.tar.gz -C ~/demo<br>  <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">  tar命令：</span><br><span class="line">  - -c 创建.tar格式的文件</span><br><span class="line">  - -x 解开.tar格式的文件</span><br><span class="line">  - -f 使用归档文件</span><br><span class="line">  - -v 显示详细信息</span><br><span class="line">  - -t 查看包内文件</span><br><span class="line">  - -j 使用baip2程序</span><br><span class="line">  - -z 使用gzip程序</span><br><span class="line">  - -p 打包时保留文件及目录的权限</span><br><span class="line">  - -P 打包时保留文件及目录的绝对路径</span><br><span class="line">  - -C 释放的目的地</span><br><span class="line">* 修改工程名&#x2F;bin&#x2F;catalina.sh</span><br><span class="line"></span><br></pre></td></tr></table></figure><br>  cp catalina.sh catalina.sh.date<br>  vi catalina.sh<br>  添加(改为生产环境)<br>  JAVA_OPTS=’-Dspring.profiles.active=prod -Xms512m -Xmx2048m -XX:PermSize=256M -XX:MaxNewSize=256m -XX:MaxPermSize=256m’<br>  <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">* 修改该tomcat中server.xml，修改相关port(避免与服务器中其他tomcat端口冲突)</span><br><span class="line">* 将打包后的工程.war文件放入demo&#x2F;webapps&#x2F;  </span><br><span class="line">  跳过测试打包</span><br><span class="line">  </span><br></pre></td></tr></table></figure><br>  mvn -Pprod package -Dmaven.test.skip=true<br>  <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">打包 信息输出到文件</span><br><span class="line"></span><br></pre></td></tr></table></figure><br>  mvn -Pprod package -Dmaven.test.skip=true &gt; demo.log<br>  <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">  </span><br><span class="line">## Postgresql</span><br><span class="line">* 更新</span><br><span class="line">  </span><br></pre></td></tr></table></figure><br>  sudo apt-get update<br>  <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">* 下载服务端</span><br><span class="line">  </span><br></pre></td></tr></table></figure><br>  sudo apt-get install postgresql postgresql-contrib<br>  <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">* pg启动／重启／停止</span><br><span class="line"></span><br></pre></td></tr></table></figure><br>  sudo /etc/init.d/postgresql start/restart/stop<br>  <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">* 进入pg</span><br><span class="line"></span><br></pre></td></tr></table></figure><br>  sudo -i -u postgres<br>  <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">* 带密码创建用户</span><br><span class="line"></span><br></pre></td></tr></table></figure><br>  createuser username -P<br>  <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">* 不带密码创建用户</span><br><span class="line"></span><br></pre></td></tr></table></figure><br>  createuser username<br>  <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">* 删除用户</span><br><span class="line"></span><br></pre></td></tr></table></figure><br>  dropper username<br>  <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">* 创建数据库</span><br><span class="line"></span><br></pre></td></tr></table></figure><br>  createdb dbname<br>  ```</p>
+]]></content>
+      <categories>
+        <category>config</category>
+      </categories>
+      <tags>
+        <tag>server</tag>
+        <tag>ubuntu</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>crontab</title>
     <url>/2020/11/03/crontab/</url>
     <content><![CDATA[<h1 id="定时任务"><a href="#定时任务" class="headerlink" title="定时任务"></a>定时任务</h1><h2 id="Cron表达式"><a href="#Cron表达式" class="headerlink" title="Cron表达式"></a>Cron表达式</h2><p>共七位，最少六位，表示如下，其中对英文缩写、特殊字符大小写不敏感</p>
@@ -110,33 +201,6 @@
       </tags>
   </entry>
   <entry>
-    <title>在本机上同时使用GitHub与GitLab</title>
-    <url>/2017/01/17/git-config/</url>
-    <content><![CDATA[<h1 id="在本机上同时使用GitHub与GitLab"><a href="#在本机上同时使用GitHub与GitLab" class="headerlink" title="在本机上同时使用GitHub与GitLab"></a>在本机上同时使用GitHub与GitLab</h1><ul>
-<li><p>进入.ssh文件夹</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd .ssh&#x2F;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>修改config文件(若没有，<em>touch config</em>)</p>
-   <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># gitlab</span><br><span class="line">Host gitlab.com</span><br><span class="line">    HostName gitlab.com</span><br><span class="line">    PreferredAuthentications publickey</span><br><span class="line">    IdentityFile ~&#x2F;.ssh&#x2F;id_rsa</span><br><span class="line"># github</span><br><span class="line">Host github.com</span><br><span class="line">    HostName github.com</span><br><span class="line">    PreferredAuthentications publickey</span><br><span class="line">    IdentityFile ~&#x2F;.ssh&#x2F;id_rsa_github</span><br></pre></td></tr></table></figure></li>
-<li><p>测试连接</p>
-  <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ssh -T git@github.com</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<p>若输出如下，则连接成功</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Hi BreadKid! You&#39;ve successfully authenticated, but GitHub does not provide shell access.</span><br></pre></td></tr></table></figure>
-
-<p><a href="http://xuyuan923.github.io/2014/11/04/github-gitlab-ssh/">参考博客</a></p>
-]]></content>
-      <categories>
-        <category>note</category>
-      </categories>
-      <tags>
-        <tag>git</tag>
-        <tag>config</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Mac下的配置文件</title>
     <url>/2018/06/06/mac-files/</url>
     <content><![CDATA[<h1 id="profile"><a href="#profile" class="headerlink" title="profile"></a>profile</h1><p>location: <code>/etc/profile</code></p>
@@ -185,6 +249,33 @@
       </tags>
   </entry>
   <entry>
+    <title>在本机上同时使用GitHub与GitLab</title>
+    <url>/2017/01/17/git-config/</url>
+    <content><![CDATA[<h1 id="在本机上同时使用GitHub与GitLab"><a href="#在本机上同时使用GitHub与GitLab" class="headerlink" title="在本机上同时使用GitHub与GitLab"></a>在本机上同时使用GitHub与GitLab</h1><ul>
+<li><p>进入.ssh文件夹</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd .ssh&#x2F;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修改config文件(若没有，<em>touch config</em>)</p>
+   <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># gitlab</span><br><span class="line">Host gitlab.com</span><br><span class="line">    HostName gitlab.com</span><br><span class="line">    PreferredAuthentications publickey</span><br><span class="line">    IdentityFile ~&#x2F;.ssh&#x2F;id_rsa</span><br><span class="line"># github</span><br><span class="line">Host github.com</span><br><span class="line">    HostName github.com</span><br><span class="line">    PreferredAuthentications publickey</span><br><span class="line">    IdentityFile ~&#x2F;.ssh&#x2F;id_rsa_github</span><br></pre></td></tr></table></figure></li>
+<li><p>测试连接</p>
+  <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ssh -T git@github.com</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>若输出如下，则连接成功</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Hi BreadKid! You&#39;ve successfully authenticated, but GitHub does not provide shell access.</span><br></pre></td></tr></table></figure>
+
+<p><a href="http://xuyuan923.github.io/2014/11/04/github-gitlab-ssh/">参考博客</a></p>
+]]></content>
+      <categories>
+        <category>note</category>
+      </categories>
+      <tags>
+        <tag>git</tag>
+        <tag>config</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>免费CloudFlare SSL配置</title>
     <url>/2017/01/16/%E5%85%8D%E8%B4%B9CloudFlare-SSL%E9%85%8D%E7%BD%AE/</url>
     <content><![CDATA[<p>现在好多网站都转成了https，外加小程序强制https，这小网站算凑凑热闹。<br>网上查阅些过来人的教学博客，发现大家都用CloudFlare的免费SSL，<a href="https://github.com/BreadKid/breadkid.github.io">我的网站</a>本来是基于<a href="https://pages.github.com/">Gitpages</a>搭建的，虽然Gitpages提供了Https的设置(<a href="https://help.github.com/articles/securing-your-github-pages-site-with-https/">相关官方文档</a>)，但要用该功能的话必须是<em>github.io</em>的域名。我用自己的<em>breadykid.com</em>域名，所以需要折腾一下。</p>
@@ -219,6 +310,196 @@
         <tag>git</tag>
         <tag>hexo</tag>
         <tag>https</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>微信H5支付</title>
+    <url>/2016/01/10/%E5%BE%AE%E4%BF%A1H5%E6%94%AF%E4%BB%98/</url>
+    <content><![CDATA[<h1 id="微信解读"><a href="#微信解读" class="headerlink" title="微信解读"></a>微信解读</h1><ul>
+<li><p><strong>使用场景</strong><br>商户已有H5商城网站，用户通过消息或扫描二维码在微信内打开网页时，可以调用微信支付完成下单购买的流程。</p>
+</li>
+<li><p><strong>步骤</strong>  </p>
+<ul>
+<li>商户下发图文消息或者通过自定义菜单吸引用户点击进入商户网页。</li>
+<li>进入商户网页，用户选择购买，完成选购流程。</li>
+</ul>
+</li>
+<li><p><strong>简述</strong><br>微信的H5页面支付只需在商家的付款页面上调用wechat的API即可，调用时需要提供一些**<em>指定参数**</em>，所以，前端页面代码只需复制微信官方提供的页面方法即可；而后端需要做的，就是将支付所需参数生成正确并传递到页面即可。</p>
+</li>
+</ul>
+<h1 id="网页端调起支付API所需参数"><a href="#网页端调起支付API所需参数" class="headerlink" title="网页端调起支付API所需参数"></a>网页端调起支付API所需参数</h1><p>详见微信官方文档 <a href="https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=7_7&index=6">wechat link</a><br>在微信浏览器里面打开H5网页中执行JS调起支付。接口输入输出数据格式为JSON。<br><em>注意：WeixinJSBridge内置对象在其他浏览器中无效。列表中参数名区分大小，大小写错误签名验证会失败。</em>  </p>
+<p>网页端接口参数列表:</p>
+<p>| 名称 |变量名|必填|类型|示例|描述|<br>| 公众号id | appId  | 是 | String(16) | wx8888888888888888 | 公众号名称，由商户传入，商户注册具有支付权限的公众号成功后即可获得 |<br>| 时间戳 | timeStamp  | 是 | String(32) | 1414561699 | 当前的时间，自1970年以来的秒数，其他详见时间戳规则 |<br>| 随机字符串 | nonceStr  | 是 | String(32) | 5K8264ILTKCH16CQ2502SI8ZNMTM67VS | 随机字符串，不长于32位。|<br>|订单详情扩展字符串|package|是|String(128)|prepay_id=123456789|统一下单接口返回的参数值，提交格式必须如示例所示|<br>|签名方式| type  | 是 | String(32) | MD5 |签名算法|<br>| 时间戳 | timeStamp  | 是 | String(64) | C380BEC2BFD727A4B6845133519F3AD6 |签名|</p>
+<p><a href="https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=4_3">签名生成算法</a><br><a href="https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=4_2">时间戳规则</a><br><a href="https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=4_3">随机数生成算法</a></p>
+<p>网页内支付接口err_msg返回结果值说明:  </p>
+<p>|返回值|描述|<br>|ok|支付成功，仅在用户成功完成支付时返回|<br>|cancel|支付过程中，用户取消(可以统一处理为用户遇到错误或者主动放弃，不必细化区分)|<br>|fail|支付失败(可以统一处理为用户遇到错误或者主动放弃，不必细化区分)|</p>
+<h1 id="网页端调起支付API示例代码"><a href="#网页端调起支付API示例代码" class="headerlink" title="网页端调起支付API示例代码"></a>网页端调起支付API示例代码</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function onBridgeReady()&#123;</span><br><span class="line">        WeixinJSBridge.invoke(</span><br><span class="line">       &#39;getBrandWCPayRequest&#39;, &#123;</span><br><span class="line">           &quot;appId&quot; ： &quot;wx2421b1c4370ec43b&quot;,     &#x2F;&#x2F;公众号名称，由商户传入     </span><br><span class="line">           &quot;timeStamp&quot;：&quot; 1395712654&quot;,         &#x2F;&#x2F;时间戳，自1970年以来的秒数     </span><br><span class="line">           &quot;nonceStr&quot; ： &quot;e61463f8efa94090b1f366cccfbbb444&quot;, &#x2F;&#x2F;随机串     </span><br><span class="line">           &quot;package&quot; ： &quot;prepay_id&#x3D;u802345jgfjsdfgsdg888&quot;,     </span><br><span class="line">           &quot;signType&quot; ： &quot;MD5&quot;,         &#x2F;&#x2F;微信签名方式：     </span><br><span class="line">           &quot;paySign&quot; ： &quot;70EA570631E4BB79628FBCA90534C63FF7FADD89&quot; &#x2F;&#x2F;微信签名 </span><br><span class="line">       &#125;,</span><br><span class="line">       function(res)&#123;     </span><br><span class="line">           if (res.err_msg &#x3D;&#x3D; &quot;get_brand_wcpay_request:ok&quot;) &#123;</span><br><span class="line">                 alert(&quot;pay success&quot;);</span><br><span class="line">           &#125;</span><br><span class="line">           if (res.err_msg &#x3D;&#x3D; &quot;get_brand_wcpay_request:cancel&quot;) &#123;</span><br><span class="line">                 alert(&quot;pay cancel&quot;);</span><br><span class="line">           &#125;</span><br><span class="line">           if (res.err_msg &#x3D;&#x3D; &quot;get_brand_wcpay_request:fail&quot;) &#123;</span><br><span class="line">                 alert(&quot;pay failed&quot;);</span><br><span class="line">           &#125; </span><br><span class="line">       &#125;</span><br><span class="line">       ); </span><br><span class="line">       &#125;</span><br><span class="line">       if (typeof WeixinJSBridge &#x3D;&#x3D; &quot;undefined&quot;)&#123;</span><br><span class="line">           if( document.addEventListener )&#123;</span><br><span class="line">               document.addEventListener(&#39;WeixinJSBridgeReady&#39;, onBridgeReady, false);</span><br><span class="line">           &#125;else if (document.attachEvent)&#123;</span><br><span class="line">       document.attachEvent(&#39;WeixinJSBridgeReady&#39;, onBridgeReady); </span><br><span class="line">       document.attachEvent(&#39;onWeixinJSBridgeReady&#39;, onBridgeReady);</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;else&#123;</span><br><span class="line">          onBridgeReady();</span><br><span class="line">       &#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="后端代码剖析"><a href="#后端代码剖析" class="headerlink" title="后端代码剖析"></a>后端代码剖析</h1><h2 id="与支付H5页面交互类"><a href="#与支付H5页面交互类" class="headerlink" title="与支付H5页面交互类"></a>与支付H5页面交互类</h2><p><em>其中notify_url与设置详见下图</em><br>支付授权目录：<br>xzl.gxcm.com.cn/#/为iOS路径<br>xzl.gxcm.com.cn/#/course/为android路径<br>支付授权目录.png?nolink<br>微信支付设置：需要为测试人员设置白名单，否则无法支付<br>开发配置.png?nolink</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import com.*.CommonUtil;</span><br><span class="line">import com.*.MD5SignUtil;</span><br><span class="line">import com.*.PayUtil;</span><br><span class="line">import com.*.WeChatConnector;</span><br><span class="line">import org.springframework.ui.Model;</span><br><span class="line">import java.util.HashMap;</span><br><span class="line">import java.util.Map;</span><br><span class="line">import java.util.UUID;</span><br><span class="line"></span><br><span class="line">public class WechatPayService&#123;</span><br><span class="line"></span><br><span class="line">     private static Log log&#x3D; LogFactory.getLog(WechatPayService.class);</span><br><span class="line">     public String wechatPay(Model model, String openId, String price) throws Exception &#123;</span><br><span class="line">          String paternerKey &#x3D; &quot;demo123456demo123456demo123456de&quot;; &#x2F;&#x2F; 密钥，需登录微信支付平台获得</span><br><span class="line">          String appId &#x3D; WeChatConnector.getMpConfigStorage().getAppId(); &#x2F;&#x2F; 公众号名称，由商户传入</span><br><span class="line">          String timestamp &#x3D; System.currentTimeMillis() &#x2F; 1000 + &quot;&quot;;</span><br><span class="line">          String nonceStr &#x3D; UUID.randomUUID().toString().substring(0, 32);</span><br><span class="line">          String num &#x3D; (Double.parseDouble(price) * 100 + &quot;&quot;).substring(0, (Double.parseDouble(price) * 100 + &quot;&quot;).indexOf(&quot;.&quot;)); &#x2F;&#x2F; 对页面传入的价格进行处理</span><br><span class="line">          PayUtil payUtil &#x3D; new PayUtil();</span><br><span class="line">          &#x2F;&#x2F; get prepayid</span><br><span class="line">          Map map &#x3D; new HashMap();</span><br><span class="line">          map.put(&quot;appid&quot;, appId);</span><br><span class="line">          map.put(&quot;mch_id&quot;, &quot;1235171102&quot;); &#x2F;&#x2F; 商户号</span><br><span class="line">          map.put(&quot;nonce_str&quot;, nonceStr); &#x2F;&#x2F; 随机数</span><br><span class="line">          map.put(&quot;body&quot;, &quot;高校传媒&quot;); &#x2F;&#x2F; 产品名</span><br><span class="line">          map.put(&quot;out_trade_no&quot;, payUtil.orderNum());</span><br><span class="line">          map.put(&quot;total_fee&quot;, price); &#x2F;&#x2F; 总价，以“分”为单位</span><br><span class="line">          map.put(&quot;spbill_create_ip&quot;, &quot;127.0.0.1&quot;); &#x2F;&#x2F; request.getRemoteAddr()</span><br><span class="line">          map.put(&quot;notify_url&quot;, &quot;http:&#x2F;&#x2F;xzl.gxcm.com.cn&#x2F;wechat&#x2F;gitPay&quot;); &#x2F;&#x2F; 支付授权目录，设置见下图</span><br><span class="line">          map.put(&quot;trade_type&quot;, &quot;JSAPI&quot;); &#x2F;&#x2F; 支付接口类型</span><br><span class="line">          map.put(&quot;attach&quot;, courseId); &#x2F;&#x2F; 课程Id</span><br><span class="line">          map.put(&quot;openid&quot;, openId); &#x2F;&#x2F; 用户的openId</span><br><span class="line">          String paySign &#x3D; MD5SignUtil.sign(CommonUtil.FormatBizQueryParaMap(map), paternerKey);</span><br><span class="line">          map.put(&quot;sign&quot;, paySign); &#x2F;&#x2F; sign</span><br><span class="line">          String xml &#x3D; CommonUtil.ArrayToXml(map);</span><br><span class="line">          String prepayid &#x3D; payUtil.getPrepayid(xml);</span><br><span class="line"></span><br><span class="line">          &#x2F;&#x2F; h5 param</span><br><span class="line">          Map signMap &#x3D; new HashMap();</span><br><span class="line">          model.addAttribute(&quot;appId&quot;, appId);</span><br><span class="line">          model.addAttribute(&quot;timeStamp&quot;, timestamp);</span><br><span class="line">          model.addAttribute(&quot;package&quot;, &quot;prepay_id&#x3D;&quot; + prepayid);</span><br><span class="line">          model.addAttribute(&quot;nonceStr&quot;, nonceStr);</span><br><span class="line">          model.addAttribute(&quot;signType&quot;, &quot;MD5&quot;);</span><br><span class="line"></span><br><span class="line">          signMap.put(&quot;appId&quot;, appId);</span><br><span class="line">          signMap.put(&quot;timeStamp&quot;, timestamp);</span><br><span class="line">          signMap.put(&quot;package&quot;, &quot;prepay_id&#x3D;&quot; + prepayid);</span><br><span class="line">          signMap.put(&quot;signType&quot;, &quot;MD5&quot;);</span><br><span class="line">          signMap.put(&quot;nonceStr&quot;, nonceStr);</span><br><span class="line">          String paySignH5 &#x3D; MD5SignUtil.sign(CommonUtil.FormatBizQueryParaMap(signMap), paternerKey);</span><br><span class="line"></span><br><span class="line">          model.addAttribute(&quot;paySign&quot;, paySignH5);</span><br><span class="line">          String url &#x3D; String.format(&quot;checkout&#x2F;partials&#x2F;wechatPayForm&quot;, model);</span><br><span class="line"></span><br><span class="line">          return url;</span><br><span class="line">      &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="交互所需参数生成工具类"><a href="#交互所需参数生成工具类" class="headerlink" title="交互所需参数生成工具类"></a>交互所需参数生成工具类</h2><p>CommonUtil<br>HttpClientUtil<br>MD5SignUtil<br>MD5Util<br>MapKeyComparatorUtil<br>PayUtil </p>
+<h3 id="CommonUtil-java"><a href="#CommonUtil-java" class="headerlink" title="CommonUtil.java"></a>CommonUtil.java</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"> import java.util.*;</span><br><span class="line"></span><br><span class="line"> public class CommonUtil &#123;</span><br><span class="line"></span><br><span class="line"> &#x2F;&#x2F; 转换</span><br><span class="line"> public static String ArrayToXml(Map&lt;String, String&gt; arr) &#123;</span><br><span class="line"></span><br><span class="line">     String xml &#x3D; &quot;&lt;xml&gt;&quot;;</span><br><span class="line"></span><br><span class="line">     Iterator&lt;Map.Entry&lt;String, String&gt;&gt; iter &#x3D; arr.entrySet().iterator();</span><br><span class="line">     while (iter.hasNext()) &#123;</span><br><span class="line">         Map.Entry&lt;String, String&gt; entry &#x3D; iter.next();</span><br><span class="line">         String key &#x3D; entry.getKey();</span><br><span class="line">         String val &#x3D; entry.getValue();</span><br><span class="line">         xml +&#x3D; &quot;&lt;&quot; + key + &quot;&gt;&quot; + val + &quot;&lt;&#x2F;&quot; + key + &quot;&gt;&quot;;</span><br><span class="line">     &#125;</span><br><span class="line"></span><br><span class="line">     xml +&#x3D; &quot;&lt;&#x2F;xml&gt;&quot;;</span><br><span class="line">     return xml;</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> &#x2F;&#x2F; 字典排序</span><br><span class="line"> public static String FormatBizQueryParaMap(Map map) throws Exception &#123;</span><br><span class="line"></span><br><span class="line">  StringBuffer sb &#x3D; new StringBuffer();</span><br><span class="line">  if (map &#x3D;&#x3D; null || map.isEmpty()) &#123;</span><br><span class="line">      return null;</span><br><span class="line">  &#125;</span><br><span class="line">  Map&lt;String, String&gt; sortMap &#x3D; new TreeMap&lt;String, String&gt;(new MapKeyComparatorUtil());</span><br><span class="line">  sortMap.putAll(map);</span><br><span class="line">  Map&lt;String, String&gt; resultMap &#x3D; sortMap;</span><br><span class="line">  for (Map.Entry&lt;String, String&gt; entry : resultMap.entrySet()) &#123;</span><br><span class="line">      sb.append(entry.getKey() + &quot;&#x3D;&quot; + entry.getValue() + &quot;&amp;&quot;);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  return sb.toString().substring(0,sb.toString().length()-1);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="HttpClientUtil-java"><a href="#HttpClientUtil-java" class="headerlink" title="HttpClientUtil.java"></a>HttpClientUtil.java</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import org.apache.commons.httpclient.methods.PostMethod;</span><br><span class="line"></span><br><span class="line">public class HttpClientUtil &#123;</span><br><span class="line"></span><br><span class="line">  private static HttpClientUtil instance &#x3D; null;</span><br><span class="line"></span><br><span class="line">  private HttpClientUtil() &#123;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  public static HttpClientUtil getInstance() &#123;</span><br><span class="line">      if (instance &#x3D;&#x3D; null) &#123;</span><br><span class="line">          instance &#x3D; new HttpClientUtil();</span><br><span class="line">      &#125;</span><br><span class="line">      return instance;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  &#x2F;&#x2F; 发送 post请求</span><br><span class="line">  &#x2F;&#x2F; @param httpUrl 地址</span><br><span class="line">  public PostMethod postMethod(String httpUrl) &#123;</span><br><span class="line">      PostMethod postMethod&#x3D;new PostMethod(httpUrl);&#x2F;&#x2F; 创建httpPost</span><br><span class="line">      return postMethod;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="MD5SignUtil-java"><a href="#MD5SignUtil-java" class="headerlink" title="MD5SignUtil.java"></a>MD5SignUtil.java</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public class MD5SignUtil &#123;</span><br><span class="line"></span><br><span class="line">   public static String sign(String content, String key) throws Exception &#123;</span><br><span class="line">       String signStr &#x3D; content + &quot;&amp;key&#x3D;&quot; + key;</span><br><span class="line">       return MD5Util.MD5(signStr).toUpperCase();</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="MD5Util-java"><a href="#MD5Util-java" class="headerlink" title="MD5Util.java"></a>MD5Util.java</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import java.security.MessageDigest;</span><br><span class="line"></span><br><span class="line">public class MD5Util &#123;</span><br><span class="line"></span><br><span class="line">  public final static String MD5(String s) &#123;</span><br><span class="line">      char hexDigits[]&#x3D;&#123;&#39;0&#39;,&#39;1&#39;,&#39;2&#39;,&#39;3&#39;,&#39;4&#39;,&#39;5&#39;,&#39;6&#39;,&#39;7&#39;,&#39;8&#39;,&#39;9&#39;,&#39;A&#39;,&#39;B&#39;,&#39;C&#39;,&#39;D&#39;,&#39;E&#39;,&#39;F&#39;&#125;;</span><br><span class="line">      try &#123;</span><br><span class="line">          byte[] btInput &#x3D; s.getBytes();</span><br><span class="line">          MessageDigest mdInst &#x3D; MessageDigest.getInstance(&quot;MD5&quot;);</span><br><span class="line">          mdInst.update(btInput);</span><br><span class="line">          byte[] md &#x3D; mdInst.digest();</span><br><span class="line">          int j &#x3D; md.length;</span><br><span class="line">          char str[] &#x3D; new char[j * 2];</span><br><span class="line">          int k &#x3D; 0;</span><br><span class="line">          for (int i &#x3D; 0; i &lt; j; i++) &#123;</span><br><span class="line">              byte byte0 &#x3D; md[i];</span><br><span class="line">              str[k++] &#x3D; hexDigits[byte0 &gt;&gt;&gt; 4 &amp; 0xf];</span><br><span class="line">              str[k++] &#x3D; hexDigits[byte0 &amp; 0xf];</span><br><span class="line">          &#125;</span><br><span class="line">          return new String(str);</span><br><span class="line">      &#125; catch (Exception e) &#123;</span><br><span class="line">          e.printStackTrace();</span><br><span class="line">          return null;</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="MapKeyComparatorUtil-java"><a href="#MapKeyComparatorUtil-java" class="headerlink" title="MapKeyComparatorUtil.java"></a>MapKeyComparatorUtil.java</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import java.util.Comparator;</span><br><span class="line"></span><br><span class="line">public class MapKeyComparatorUtil implements Comparator&lt;String&gt; &#123;</span><br><span class="line"></span><br><span class="line"> @Override</span><br><span class="line"> public int compare(String o1, String o2) &#123;</span><br><span class="line">     return o1.compareTo(o2);</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="PayUtil-java"><a href="#PayUtil-java" class="headerlink" title="PayUtil.java"></a>PayUtil.java</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import org.apache.commons.httpclient.HttpClient;</span><br><span class="line">import org.apache.commons.httpclient.SimpleHttpConnectionManager;</span><br><span class="line">import org.apache.commons.httpclient.methods.PostMethod;</span><br><span class="line">import org.apache.commons.httpclient.params.HttpClientParams;</span><br><span class="line">import org.apache.commons.logging.Log;</span><br><span class="line">import org.apache.commons.logging.LogFactory;</span><br><span class="line">import org.codehaus.jettison.json.JSONObject;</span><br><span class="line">import java.io.IOException;</span><br><span class="line">import java.io.InputStream;</span><br><span class="line">import java.util.Random;</span><br><span class="line"></span><br><span class="line">public class PayUtil &#123;</span><br><span class="line"></span><br><span class="line">  private static Log log &#x3D; LogFactory.getLog(PayUtil.class);</span><br><span class="line">  public static String URL &#x3D; &quot;https:&#x2F;&#x2F;api.mch.weixin.qq.com&#x2F;pay&#x2F;unifiedorder&quot;;</span><br><span class="line"></span><br><span class="line">  public String getPrepayid(String xml) &#123;</span><br><span class="line">      log.warn(xml);</span><br><span class="line">      try &#123;</span><br><span class="line">          JSONObject jo &#x3D; getPrepayJson(xml);</span><br><span class="line">          JSONObject element &#x3D; jo.getJSONObject(&quot;xml&quot;);</span><br><span class="line">          String prepayid &#x3D; (element.get(&quot;prepay_id&quot;)).toString();</span><br><span class="line">          return prepayid.substring(1, prepayid.length() - 1);</span><br><span class="line">      &#125; catch (Exception e) &#123;</span><br><span class="line">          e.printStackTrace();</span><br><span class="line">      &#125;</span><br><span class="line">      return null;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  @SuppressWarnings(&quot;deprecation&quot;)</span><br><span class="line">  public JSONObject getPrepayJson(String xml) &#123;</span><br><span class="line">      HttpClient httpClient &#x3D; new HttpClient(new HttpClientParams(), new SimpleHttpConnectionManager(true));</span><br><span class="line">      InputStream is &#x3D; null;</span><br><span class="line">      PostMethod method &#x3D; null;</span><br><span class="line">      try &#123;</span><br><span class="line">          method &#x3D; HttpClientUtil.getInstance().postMethod(URL);</span><br><span class="line">          method.setRequestBody(xml);</span><br><span class="line">          method.getParams().setContentCharset(&quot;UTF-8&quot;); &#x2F;&#x2F; UTF-8</span><br><span class="line">          httpClient.executeMethod(method);</span><br><span class="line">          &#x2F;&#x2F;读取响应</span><br><span class="line">          is &#x3D; method.getResponseBodyAsStream();</span><br><span class="line">          JSONObject o &#x3D; XmlJsonUtil.xmlJSON(is);</span><br><span class="line">          return o;</span><br><span class="line">      &#125; catch (Exception e) &#123;</span><br><span class="line">          e.printStackTrace();</span><br><span class="line">      &#125; finally &#123;</span><br><span class="line">          if (method !&#x3D; null) &#123;</span><br><span class="line">              method.releaseConnection();</span><br><span class="line">          &#125;</span><br><span class="line">          if (is !&#x3D; null) &#123;</span><br><span class="line">              try &#123;</span><br><span class="line">                  is.close();</span><br><span class="line">              &#125; catch (IOException e1) &#123;</span><br><span class="line">                  e1.printStackTrace();</span><br><span class="line">              &#125;</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      return null;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  &#x2F;&#x2F; @return time&amp;randomNum</span><br><span class="line">  public String orderNum() &#123;</span><br><span class="line">      String chars &#x3D; &quot;0123456789&quot;;</span><br><span class="line">      String order &#x3D; System.currentTimeMillis() + &quot;&quot;;</span><br><span class="line">      String res &#x3D; &quot;&quot;;</span><br><span class="line">      for (int i &#x3D; 0; i &lt; 19; i++) &#123;</span><br><span class="line">          Random rd &#x3D; new Random();</span><br><span class="line">          res +&#x3D; chars.charAt(rd.nextInt(chars.length() - 1));</span><br><span class="line">      &#125;</span><br><span class="line">      order +&#x3D; res;</span><br><span class="line">      return order;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="支付成功发送模版消息"><a href="#支付成功发送模版消息" class="headerlink" title="支付成功发送模版消息"></a>支付成功发送模版消息</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; wechat shopping receipt</span><br><span class="line">&#x2F;&#x2F; 发送模版消息</span><br><span class="line">&#x2F;&#x2F; @param openId</span><br><span class="line">&#x2F;&#x2F; @param price</span><br><span class="line">public void sendShoppingReceipt(String openId, String price) &#123;</span><br><span class="line">  WxMpTemplateMessage wxMpTemplateMessage &#x3D; new WxMpTemplateMessage();</span><br><span class="line">  wxMpTemplateMessage.setToUser(openId);</span><br><span class="line">  wxMpTemplateMessage.setTemplateId(&quot;VTevmK1xd15sAlMPOmna1bXnh-l46Epw9DwrqHvkKVo&quot;); &#x2F;&#x2F; 模版ID</span><br><span class="line">  wxMpTemplateMessage.setUrl(&quot;bige.t.beeoz.com&#x2F;#&#x2F;owncourse&quot;);&#x2F;&#x2F; user center page</span><br><span class="line">  wxMpTemplateMessage.setTopColor(&quot;#173177&quot;);</span><br><span class="line">  wxMpTemplateMessage.getDatas().add(new WxMpTemplateData(&quot;first&quot;, &quot;购买成功&quot;, &quot;#173177&quot;));</span><br><span class="line">  wxMpTemplateMessage.getDatas().add(new WxMpTemplateData(&quot;product&quot;, &quot;在线课程&quot;, &quot;#173177&quot;));</span><br><span class="line">  wxMpTemplateMessage.getDatas().add(new WxMpTemplateData(&quot;price&quot;, price, &quot;#173177&quot;));</span><br><span class="line">  wxMpTemplateMessage.getDatas().add(new WxMpTemplateData(&quot;time&quot;, System.currentTimeMillis() + &quot;&quot;, &quot;#173177&quot;));</span><br><span class="line">  wxMpTemplateMessage.getDatas().add(new WxMpTemplateData(&quot;remark&quot;, &quot;如有疑问，请咨询公众号客服&quot;, &quot;#173177&quot;));</span><br><span class="line">  try &#123;</span><br><span class="line">      WeChatConnector.getMpService().templateSend(wxMpTemplateMessage);</span><br><span class="line">  &#125; catch (WxErrorException e) &#123;</span><br><span class="line">      e.printStackTrace();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>note</category>
+      </categories>
+      <tags>
+        <tag>wechat</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>树莓派温湿度监督玩具</title>
+    <url>/2018/05/10/%E6%A0%91%E8%8E%93%E6%B4%BE%E6%B8%A9%E6%B9%BF%E5%BA%A6%E7%9B%91%E7%9D%A3%E7%8E%A9%E5%85%B7/</url>
+    <content><![CDATA[<p>基于 Rasperry Pi 3B and Arduino  </p>
+<p>公司为了防止夏天机房温度过高，需要一个温度监测工具，其实市面上的小米温度监测只要35块，但是想着可自定义扩展的需要，就做了一个从硬件到软件的温湿度监测系统，好在用了一个周末做出来了，考虑到之后还要增加电压警告等功能，选型如下：</p>
+<hr>
+<ul>
+<li>开发板：（来自万能的大淘宝）<ul>
+<li>Rasberry Pi 3B：中央控制服务器，负责与互联网的通信、采样存储 Arduino 上报的状态数据、提供/调用API以方便用其他终端控制。</li>
+<li>Arduino UNO：负责传感器采样，和 RPi 进行通信。</li>
+</ul>
+</li>
+<li>温度传感器：DHT22</li>
+<li>语言：Python3,Java8</li>
+<li>存储：Mysql,Redis</li>
+</ul>
+<h2 id="Arduino"><a href="#Arduino" class="headerlink" title="Arduino"></a>Arduino</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#include &quot;DHT.h&quot;</span><br><span class="line">DHT dht(2, DHT22);</span><br><span class="line"></span><br><span class="line">void setup()</span><br><span class="line">&#123;</span><br><span class="line">  Serial.begin(9600);</span><br><span class="line">  dht.begin();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void loop()</span><br><span class="line">&#123;</span><br><span class="line">  float humidity &#x3D; dht.readHumidity();</span><br><span class="line">  float temperature &#x3D; dht.readTemperature();</span><br><span class="line">  Serial.print(&quot;Humidity: &quot;);</span><br><span class="line">  Serial.print(humidity);</span><br><span class="line">  Serial.print(&quot; &quot;);</span><br><span class="line">  Serial.print(&quot;Temperature: &quot;);</span><br><span class="line">  Serial.println(temperature);</span><br><span class="line">  delay(2000);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="RasberryPi-3B"><a href="#RasberryPi-3B" class="headerlink" title="RasberryPi 3B"></a>RasberryPi 3B</h2><h3 id="安装系统"><a href="#安装系统" class="headerlink" title="安装系统"></a>安装系统</h3><p>镜像:<em>raspbian-stretch-lite</em><br>microSD卡:<em>16G</em>，推荐8G以上</p>
+<ul>
+<li><p>将SD卡格式化:(Mac)磁盘工具–&gt;抹掉–&gt;MS-DOS(FAT)–&gt;抹掉</p>
+</li>
+<li><p>终端**<em>df-h**</em>查看挂载，SD 卡假设为 /dev/disk2s1</p>
+</li>
+<li><p>卸载 SD 卡**<em>diskutil unmount /dev/disk2s1**</em></p>
+</li>
+<li><p><strong><em>diskutil list</em></strong> 确认 /dev/disk2 下的 disk2</p>
+</li>
+<li><p><a href="https://www.raspberrypi.org/downloads/">官网</a>下载镜像，写入 SD 卡*<strong>sudo dd bs=4m if=本机镜像路径 of=/dev/disk2***查看进度可以另起终端 *</strong>sudo kill -INFO $(pgrep ^dd)***</p>
+</li>
+<li><p>由于树莓派默认不开启 ssh，写入成功后在 /boot/ 创建无后缀的文件名为 ssh 的文件</p>
+</li>
+<li><p>设置自动连接 Wi-Fi:在 /boot/ 下创建 wpa_supplicant.conf</p>
+  <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">country&#x3D;CN</span><br><span class="line">ctrl_interface&#x3D;DIR&#x3D;&#x2F;var&#x2F;run&#x2F;wpa_supplicant 	GROUP&#x3D;netdev</span><br><span class="line">update_config&#x3D;1</span><br><span class="line">network&#x3D;&#123;</span><br><span class="line">   	scan_ssid&#x3D;1#SSID被隐藏时设置</span><br><span class="line">   	ssid&#x3D;&quot;TaiGe&quot;#Wi-Fi名</span><br><span class="line">   	psk&#x3D;&quot;HaoyunHu888&quot;#Wi-Fi密码</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>弹出SD卡**<em>diskutil unmountDisk /dev/disk2**</em></p>
+</li>
+</ul>
+<p>以上，RasberryPi的系统安装完成，可以将SD卡插入开发版上电开机了</p>
+<h3 id="登录系统"><a href="#登录系统" class="headerlink" title="登录系统"></a>登录系统</h3><h5 id="SSH"><a href="#SSH" class="headerlink" title="SSH"></a>SSH</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ssh pi@ip</span><br><span class="line">default password: raspberry</span><br></pre></td></tr></table></figure>
+<p>通过路由器查看树莓派的当前ip:</p>
+<ul>
+<li><p>打开网页**<em>192.168.1.1**</em>，登录系统</p>
+</li>
+<li><p>状态/用户侧信息/以太网接口信息/，找到客户端名称为raspberrypi的IP地址<br>关机**<em>sudo shutdown -h now**</em>，重新上电后会自动开机</p>
+</li>
+<li><p><a href="http://www.lugick.com/2018/01/30/raspberry-pi-init/">系统安装参考</a></p>
+</li>
+<li><p><a href="https://blog.csdn.net/wongnoubo/article/details/79628313">查看rpiIP参考</a></p>
+</li>
+</ul>
+<hr>
+<h2 id="RaspberryPi读取Arduino数据"><a href="#RaspberryPi读取Arduino数据" class="headerlink" title="RaspberryPi读取Arduino数据"></a>RaspberryPi读取Arduino数据</h2><h3 id="安装Python3"><a href="#安装Python3" class="headerlink" title="安装Python3"></a>安装Python3</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo aptitude install python-dev</span><br></pre></td></tr></table></figure>
+
+<h3 id="安装Python的GPIO模块"><a href="#安装Python的GPIO模块" class="headerlink" title="安装Python的GPIO模块"></a>安装Python的GPIO模块</h3><p>用于控制LED、电机等</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo apt-get install rpi.gpio</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="安装Serial"><a href="#安装Serial" class="headerlink" title="安装Serial"></a>安装Serial</h3><p>用于串口通信及USB通信**<em>sudo apt-get install python-serial**</em></p>
+<h3 id="安装串口调试程序"><a href="#安装串口调试程序" class="headerlink" title="安装串口调试程序"></a>安装串口调试程序</h3><p>minicom是linux平台串口调试工具，可以用它来读取Arduino通过USB串口发送的传感器数值。</p>
+<ul>
+<li><p>在RaspberryPi上安装minicom：**<em>sudo apt-get install minicom**</em></p>
+</li>
+<li><p>配置minicom：</p>
+</li>
+<li><p>minicom启动：**<em>minicom -b 9600 -D /dev/ttyACM0**</em></p>
+<ul>
+<li>-b代表波特率</li>
+<li>-D代表端口</li>
+<li>/dev/ttyACM0 代表打开与Arduino相连的端口</li>
+</ul>
+</li>
+</ul>
+<h3 id="Python打印数据"><a href="#Python打印数据" class="headerlink" title="Python打印数据"></a>Python打印数据</h3><p>show.py</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> serial</span><br><span class="line">ser = serial.Serial(<span class="string">&#x27;/dev/ttyACM0&#x27;</span>,<span class="number">9600</span>)</span><br><span class="line">info = ser.readline()</span><br><span class="line"><span class="keyword">while</span> info:</span><br><span class="line">    print(info)</span><br><span class="line">    info = ser.readline()</span><br></pre></td></tr></table></figure>
+
+<p>Python调用http API<br>安装requests<br>**<em>sudo pip install requests**</em></p>
+<p>后台运行py脚本<br>**<em>nohup python api.py &amp;**</em></p>
+]]></content>
+      <tags>
+        <tag>raspberry</tag>
+        <tag>arduino</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>版本命名规范</title>
+    <url>/2018/03/07/%E7%89%88%E6%9C%AC%E5%91%BD%E5%90%8D/</url>
+    <content><![CDATA[<p>上家公司在发版时对tag的命名一直不是很规范，参考了各大网站及博客上的说明，做个笔记。</p>
+<hr>
+<h3 id="版本号格式："><a href="#版本号格式：" class="headerlink" title="版本号格式："></a>版本号格式：</h3><p>常见格式：<code>[name].A.B.C-[state]</code><br>name：可选字段,一般为 v,表示 version；<br>A：Major主版本号，一般当软件整体重写，或当API兼容性变化时递增；<br>B：Minor次版本号，当增加功能时（API兼容性不变化）递增；<br>C：Patch修订号，Bug修复时（API兼容性不变化）递增；<br>state：可选字段,表示版本状态，用alpha等修饰词</p>
+<hr>
+<h3 id="Detail"><a href="#Detail" class="headerlink" title="Detail"></a>Detail</h3><ul>
+<li><p>A，B，C为非负整数，且不得包含前导0，按数值递增。<br>🌰<code>1.2.0-&gt;1.3.0-&gt;1.4.0</code></p>
+</li>
+<li><p>0.B.C表示处于开发阶段，API不稳定，1.0.0表明已有稳定版本API</p>
+</li>
+<li><p>当API兼容性变化时，A++，B=C=0;</p>
+</li>
+<li><p>当功能新增或API标记为deprecated弃用时，B++，C=0；</p>
+</li>
+<li><p>当Bug Fix时，C++；</p>
+</li>
+<li><p>先行版本号（Pre-release）表示该版本不稳定，可能有兼容问题。<br>格式<code>1.0.0.[a-c][正整数]</code><br>🌰<code>1.0.0.a3</code> <code>1.0.0.b89</code> <code>1.0.0.c1999008</code></p>
+</li>
+<li><p>开发版本号多用于CI-CD，格式<code>A.B.C.dev[正整数]</code>。<br>🌰<code>1.0.1.dev5</code></p>
+</li>
+<li><p>版本号排序规则：</p>
+<ul>
+<li>主版本号，次版本号，修订号<br>🌰<code>1.0.0&lt;1.0.1&lt;1.1.1&lt;2.0.0</code></li>
+<li>对先行版本号与开发版本号<br>🌰<code>1.0.0.a10&lt;1.0.0</code> <code>2.1.0.dev2&lt;2.1.0</code></li>
+<li>存在字母，按ASCII码排序<br>🌰<code>1.0.0.a10&lt;1.0.0.b10</code></li>
+</ul>
+</li>
+</ul>
+<p>Tip:版本一经发布，不得修改！</p>
+<hr>
+<h3 id="修饰词"><a href="#修饰词" class="headerlink" title="修饰词"></a>修饰词</h3><ul>
+<li><code>alpha</code> 内部版本</li>
+<li><code>beta</code> 测试版</li>
+<li><code>demo</code> 演示版</li>
+<li><code>enhance</code> 增强版</li>
+<li><code>free</code> 自由版</li>
+<li><code>full version</code> 完整版，正式版</li>
+<li><code>lts</code> 长期维护版</li>
+<li><code>release</code> 发行版</li>
+<li><code>rc</code> 即将正式发布</li>
+<li><code>standard</code> 标准版</li>
+<li><code>ultimate</code> 旗舰版</li>
+<li><code>upgrade</code> 升级版</li>
+</ul>
+<hr>
+<p>参考：</p>
+<ul>
+<li><a href="https://semver.org/lang/zh-CN/">语义化版本 2.0.0</a></li>
+<li><a href="https://segmentfault.com/a/1190000011368506">理解版本命名及限定规则</a></li>
+<li>《软件工程》第十版 第25章 ISBN：9787111589105</li>
+</ul>
+]]></content>
+      <categories>
+        <category>note</category>
+      </categories>
+      <tags>
+        <tag>version</tag>
       </tags>
   </entry>
   <entry>
@@ -413,287 +694,6 @@ public void setInitializers(
 ]]></content>
       <tags>
         <tag>springboot</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>TensorFlow安装</title>
-    <url>/2017/10/08/TensorFlow%E5%AE%89%E8%A3%85/</url>
-    <content><![CDATA[<p><a href="https://github.com/BreadKid/easy_tensorflow">read more on github</a></p>
-<h2 id="1-安装"><a href="#1-安装" class="headerlink" title="1. 安装"></a>1. 安装</h2><h3 id="1-1-ubuntu安装"><a href="#1-1-ubuntu安装" class="headerlink" title="1.1 ubuntu安装"></a>1.1 ubuntu安装</h3><h3 id="1-2-Mac-OS安装"><a href="#1-2-Mac-OS安装" class="headerlink" title="1.2 Mac OS安装"></a>1.2 Mac OS安装</h3><p>TensorFlow Python API 依赖 Python 2.7 版本</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">brew install python2.7</span><br><span class="line">pip install https:&#x2F;&#x2F;storage.googleapis.com&#x2F;tensorflow&#x2F;mac&#x2F;tensorflow-0.5.0-py2-none-any.whl</span><br></pre></td></tr></table></figure>
-
-<h3 id="1-3-使用容器VirtualEnv安装"><a href="#1-3-使用容器VirtualEnv安装" class="headerlink" title="1.3 使用容器VirtualEnv安装"></a>1.3 使用容器VirtualEnv安装</h3><p><em>推荐使用 virtualenv 创建一个隔离的容器, 来安装 TensorFlow. 这样做能使排查安装问题变得更容易</em></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 在 Mac 上:</span><br><span class="line">sudo easy_install pip  # 如果还没有安装 pip</span><br><span class="line">sudo pip install --upgrade virtualenv</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><p>建立一个全新的 virtualenv 环境,将环境建在 ~/tensorflow 目录下</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">virtualenv --system-site-packages ~&#x2F;tensorflow</span><br><span class="line">cd ~&#x2F;tensorflow</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>激活 virtualenv</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">source bin&#x2F;activate  # 如果使用 bash</span><br><span class="line">source bin&#x2F;activate.csh  # 如果使用 csh</span><br><span class="line">(tensorflow)$  # 终端提示符应该发生变化</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>在 virtualenv 内, 安装 TensorFlow</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(tensorflow)$ pip install --upgrade &lt;$url_to_binary.whl&gt;</span><br><span class="line"></span><br><span class="line">&lt;$url_to_binary.whl&gt;选择:</span><br><span class="line"># Mac只支持 CPU</span><br><span class="line">https:&#x2F;&#x2F;storage.googleapis.com&#x2F;tensorflow&#x2F;mac&#x2F;tensorflow-0.5.0-py2-none-any.whl</span><br><span class="line"># Linux只支持 CPU</span><br><span class="line">https:&#x2F;&#x2F;storage.googleapis.com&#x2F;tensorflow&#x2F;linux&#x2F;cpu&#x2F;tensorflow-0.5.0-cp27-none-linux_x86_64.whl</span><br><span class="line"># 开启 GPU 支持的版本 (安装该版本的前提是已经安装了 CUDA sdk)</span><br><span class="line">https:&#x2F;&#x2F;storage.googleapis.com&#x2F;tensorflow&#x2F;linux&#x2F;gpu&#x2F;tensorflow-0.5.0-cp27-none-linux_x86_64.whl</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>运行 TensorFlow 程序</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(tensorflow)$ cd tensorflow&#x2F;models&#x2F;image&#x2F;mnist</span><br><span class="line">(tensorflow)$ python convolutional.py</span><br></pre></td></tr></table></figure>
-<p>or</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">python</span><br><span class="line">import tensorflow as tf</span><br><span class="line">hello &#x3D; tf.constant(&#39;Hello, TensorFlow!&#39;)</span><br><span class="line">sess &#x3D; tf.Session()</span><br><span class="line">print sess.run(hello)</span><br><span class="line">Hello, TensorFlow!</span><br></pre></td></tr></table></figure></li>
-<li><p>当使用完 TensorFlow</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 停用 virtualenv</span><br><span class="line">(tensorflow)$ deactivate</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<h3 id="1-4-从源码安装"><a href="#1-4-从源码安装" class="headerlink" title="1.4 从源码安装"></a>1.4 从源码安装</h3><ul>
-<li><p>clone TensorFlow 仓库</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># --recurse-submodules 参数是必须得, 用于获取 TesorFlow 依赖的 protobuf 库</span><br><span class="line">git clone --recurse-submodules https:&#x2F;&#x2F;github.com&#x2F;tensorflow&#x2F;tensorflow</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Mac OS安装<br>所需依赖：<a href="https://bazel.build/versions/master/docs/install-os-x.html#install-on-mac-os-x-homebrew">Bazel</a>, <a href="">SWIG</a></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">  brew install bazel</span><br><span class="line">  brew install swig</span><br><span class="line">  &#96;&#96;&#96;   </span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">## 2. 栗子</span><br><span class="line">### 2.1 For Java</span><br><span class="line">[example](https:&#x2F;&#x2F;github.com&#x2F;tensorflow&#x2F;tensorflow&#x2F;tree&#x2F;master&#x2F;tensorflow&#x2F;java)</span><br><span class="line"></span><br><span class="line">JDK1.7</span><br><span class="line"></span><br><span class="line">* Start Using Apache Maven</span><br><span class="line">  </span><br><span class="line">  - 创建Maven工程</span><br><span class="line">  - 添加依赖</span><br><span class="line">  </span><br></pre></td></tr></table></figure>
-  <dependencies>
-    <dependency>
-      <groupId>org.tensorflow</groupId>
-      <artifactId>tensorflow</artifactId>
-      <version>1.1.0-rc1</version>
-    </dependency>
-  </dependencies>
-  <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">- 下载样例代码添加至&#96;&#96;&#96;src&#x2F;main&#x2F;java&#x2F;org&#x2F;tensorflow&#x2F;examples&#96;&#96;&#96;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-  mkdir -p src/main/java/org/tensorflow/examples
-  curl -L "https://raw.githubusercontent.com/tensorflow/tensorflow/master/tensorflow/java/src/main/java/org/tensorflow/examples/LabelImage.java" -o src/main/java/org/tensorflow/examples/LabelImage.java
-  <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">  </span><br><span class="line">- 编译</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-  mvn compile exec:java
-  ```
-</li>
-<li><p>Start Using java and javac</p>
-</li>
-</ul>
-<h3 id="2-2-Python-Example"><a href="#2-2-Python-Example" class="headerlink" title="2.2 Python Example"></a>2.2 Python Example</h3>]]></content>
-      <tags>
-        <tag>tensorflow</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>ubuntu服务器部署</title>
-    <url>/2016/02/20/Ubuntu-server/</url>
-    <content><![CDATA[<p>首先，你要有个服务器。。。<br>目前市面上服务器供应商有很多，国内的阿里、国外的AWS、搬瓦工、Vultr、DigitalOcean等等，服务器实例创建完成后开始配置吧。</p>
-<h2 id="Login-Remote-Server"><a href="#Login-Remote-Server" class="headerlink" title="Login Remote Server"></a>Login Remote Server</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ssh username@ip-address</span><br></pre></td></tr></table></figure>
-
-<h2 id="Create-new-User-and-set-its-configuration"><a href="#Create-new-User-and-set-its-configuration" class="headerlink" title="Create new User and set its configuration"></a>Create new User and set its configuration</h2><ul>
-<li><p>在ubuntu权限下设置</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo adduser userName</span><br><span class="line">nsudo visudo</span><br><span class="line">userName ALL&#x3D;(ALL:ALL) ALL</span><br></pre></td></tr></table></figure>
-<p>or <a href="http://www.cyberciti.biz/faq/ubuntu-add-user-to-group/">see this</a></p>
-</li>
-</ul>
-<h2 id="Update-hosts-name"><a href="#Update-hosts-name" class="headerlink" title="Update hosts name"></a>Update hosts name</h2><p>临时变更主机名:“新主机名”可以用任何合法字符串来表示。<br>采用这种方式，新主机名并不保存在系统中，重启系统后主机名将恢复为原先的主机名称。 </p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hostname newName</span><br><span class="line">&#96;&#96;&#96;  </span><br><span class="line"></span><br><span class="line">永久修改主机名:重启系统后，参照上面介绍的快速查看主机名的办法来确认主机名有没有修改成功。  </span><br><span class="line"></span><br><span class="line">存放的是主机名</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>sudo vi /etc/hostname</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">添加newName</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>sudo vi /etc/hosts</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">存放的是域名与ip的对应关系，域名与主机名没有任何关系，你可以为任何一个IP指定任意一个名字</span><br><span class="line"></span><br><span class="line">## 禁止Root进行SSH远程登录</span><br><span class="line">* 修改配置  </span><br><span class="line">将&#96;&#96;&#96;PermitRootLogin yes&#96;&#96;&#96;改为&#96;&#96;&#96;PermitRootLogin no&#96;&#96;&#96;  </span><br><span class="line"></span><br><span class="line">* 重启ssh服务器,使配置变更生效;通过root登陆时，输入密码出现Permission denied, please try again.说明设置成功</span><br></pre></td></tr></table></figure>
-<p>sudo /etc/init.d/ssh restart</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">## pem配置</span><br><span class="line"></span><br><span class="line">* 切换用户  </span><br><span class="line">  在userName用户目录下</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>  su userName<br>  <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">* 创建.ssh</span><br><span class="line"></span><br></pre></td></tr></table></figure><br>  cd ~\nmkdir .ssh<br>  <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">* 添加公匙</span><br><span class="line"></span><br></pre></td></tr></table></figure><br>  touch authorized_keys<br>  vi authorized_keys<br>  <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">  （important：公匙的添加一定要仔细！错一个字母就不匹配，无法登陆！！！）</span><br><span class="line"></span><br><span class="line">配置完成后，可用密匙登陆:ssh -i ~&#x2F;.ssh&#x2F;joyce_ubuntu.pem ubuntu@ip-address</span><br><span class="line"></span><br><span class="line">## OpenJDK 8</span><br><span class="line">* 下载，坑的解决http:&#x2F;&#x2F;askubuntu.com&#x2F;questions&#x2F;464755&#x2F;how-to-install-openjdk-8-on-14-04-lts</span><br><span class="line"></span><br></pre></td></tr></table></figure><br>  sudo add-apt-repository ppa:openjdk-r/ppa<br>  <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">若报错：sudo: add-apt-repository: command not found  </span><br><span class="line">执行：</span><br><span class="line"></span><br></pre></td></tr></table></figure><br>  sudo apt-get install software-properties-common<br>  sudo apt-get update<br>  java -version<br>  <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">  </span><br><span class="line">## Nginx</span><br><span class="line"></span><br></pre></td></tr></table></figure><br>sudo apt-get install nginx<br>sudo service nginx restart<br>service nginx {start|stop|status|restart|reload|configtest|}</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">用root权限起</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>sudo lsof -i:80<br>curl localhost:80<br>netstat -an</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">## Tomcat 8</span><br><span class="line">安装tomcat8 不可安装在系统目录下，安装在用户目录下，系统目录下的操作命令与普通的不一致。  </span><br><span class="line"></span><br><span class="line">* 更新</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>  sudo apt-get update<br>  <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">* 下载(该网站搜索版本http:&#x2F;&#x2F;ftp.riken.jp&#x2F;net&#x2F;apache&#x2F;tomcat&#x2F;tomcat-8&#x2F;)</span><br><span class="line">  </span><br></pre></td></tr></table></figure><br>  wget <a href="http://ftp.riken.jp/net/apache/tomcat/tomcat-8/v8.0.33/bin/apache-tomcat-8.0.33.tar.gz">http://ftp.riken.jp/net/apache/tomcat/tomcat-8/v8.0.33/bin/apache-tomcat-8.0.33.tar.gz</a><br>  <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">* 创建文件夹</span><br><span class="line">  </span><br></pre></td></tr></table></figure><br>  mkdir demo<br>  <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">* 解压至目标文件夹</span><br><span class="line">  </span><br></pre></td></tr></table></figure><br>  tar -zxvf ~/apache-tomcat-8.0.33.tar.gz -C ~/demo<br>  <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">  tar命令：</span><br><span class="line">  - -c 创建.tar格式的文件</span><br><span class="line">  - -x 解开.tar格式的文件</span><br><span class="line">  - -f 使用归档文件</span><br><span class="line">  - -v 显示详细信息</span><br><span class="line">  - -t 查看包内文件</span><br><span class="line">  - -j 使用baip2程序</span><br><span class="line">  - -z 使用gzip程序</span><br><span class="line">  - -p 打包时保留文件及目录的权限</span><br><span class="line">  - -P 打包时保留文件及目录的绝对路径</span><br><span class="line">  - -C 释放的目的地</span><br><span class="line">* 修改工程名&#x2F;bin&#x2F;catalina.sh</span><br><span class="line"></span><br></pre></td></tr></table></figure><br>  cp catalina.sh catalina.sh.date<br>  vi catalina.sh<br>  添加(改为生产环境)<br>  JAVA_OPTS=’-Dspring.profiles.active=prod -Xms512m -Xmx2048m -XX:PermSize=256M -XX:MaxNewSize=256m -XX:MaxPermSize=256m’<br>  <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">* 修改该tomcat中server.xml，修改相关port(避免与服务器中其他tomcat端口冲突)</span><br><span class="line">* 将打包后的工程.war文件放入demo&#x2F;webapps&#x2F;  </span><br><span class="line">  跳过测试打包</span><br><span class="line">  </span><br></pre></td></tr></table></figure><br>  mvn -Pprod package -Dmaven.test.skip=true<br>  <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">打包 信息输出到文件</span><br><span class="line"></span><br></pre></td></tr></table></figure><br>  mvn -Pprod package -Dmaven.test.skip=true &gt; demo.log<br>  <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">  </span><br><span class="line">## Postgresql</span><br><span class="line">* 更新</span><br><span class="line">  </span><br></pre></td></tr></table></figure><br>  sudo apt-get update<br>  <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">* 下载服务端</span><br><span class="line">  </span><br></pre></td></tr></table></figure><br>  sudo apt-get install postgresql postgresql-contrib<br>  <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">* pg启动／重启／停止</span><br><span class="line"></span><br></pre></td></tr></table></figure><br>  sudo /etc/init.d/postgresql start/restart/stop<br>  <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">* 进入pg</span><br><span class="line"></span><br></pre></td></tr></table></figure><br>  sudo -i -u postgres<br>  <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">* 带密码创建用户</span><br><span class="line"></span><br></pre></td></tr></table></figure><br>  createuser username -P<br>  <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">* 不带密码创建用户</span><br><span class="line"></span><br></pre></td></tr></table></figure><br>  createuser username<br>  <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">* 删除用户</span><br><span class="line"></span><br></pre></td></tr></table></figure><br>  dropper username<br>  <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">* 创建数据库</span><br><span class="line"></span><br></pre></td></tr></table></figure><br>  createdb dbname<br>  ```</p>
-]]></content>
-      <categories>
-        <category>config</category>
-      </categories>
-      <tags>
-        <tag>server</tag>
-        <tag>ubuntu</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>微信H5支付</title>
-    <url>/2016/01/10/%E5%BE%AE%E4%BF%A1H5%E6%94%AF%E4%BB%98/</url>
-    <content><![CDATA[<h1 id="微信解读"><a href="#微信解读" class="headerlink" title="微信解读"></a>微信解读</h1><ul>
-<li><p><strong>使用场景</strong><br>商户已有H5商城网站，用户通过消息或扫描二维码在微信内打开网页时，可以调用微信支付完成下单购买的流程。</p>
-</li>
-<li><p><strong>步骤</strong>  </p>
-<ul>
-<li>商户下发图文消息或者通过自定义菜单吸引用户点击进入商户网页。</li>
-<li>进入商户网页，用户选择购买，完成选购流程。</li>
-</ul>
-</li>
-<li><p><strong>简述</strong><br>微信的H5页面支付只需在商家的付款页面上调用wechat的API即可，调用时需要提供一些**<em>指定参数**</em>，所以，前端页面代码只需复制微信官方提供的页面方法即可；而后端需要做的，就是将支付所需参数生成正确并传递到页面即可。</p>
-</li>
-</ul>
-<h1 id="网页端调起支付API所需参数"><a href="#网页端调起支付API所需参数" class="headerlink" title="网页端调起支付API所需参数"></a>网页端调起支付API所需参数</h1><p>详见微信官方文档 <a href="https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=7_7&index=6">wechat link</a><br>在微信浏览器里面打开H5网页中执行JS调起支付。接口输入输出数据格式为JSON。<br><em>注意：WeixinJSBridge内置对象在其他浏览器中无效。列表中参数名区分大小，大小写错误签名验证会失败。</em>  </p>
-<p>网页端接口参数列表:</p>
-<p>| 名称 |变量名|必填|类型|示例|描述|<br>| 公众号id | appId  | 是 | String(16) | wx8888888888888888 | 公众号名称，由商户传入，商户注册具有支付权限的公众号成功后即可获得 |<br>| 时间戳 | timeStamp  | 是 | String(32) | 1414561699 | 当前的时间，自1970年以来的秒数，其他详见时间戳规则 |<br>| 随机字符串 | nonceStr  | 是 | String(32) | 5K8264ILTKCH16CQ2502SI8ZNMTM67VS | 随机字符串，不长于32位。|<br>|订单详情扩展字符串|package|是|String(128)|prepay_id=123456789|统一下单接口返回的参数值，提交格式必须如示例所示|<br>|签名方式| type  | 是 | String(32) | MD5 |签名算法|<br>| 时间戳 | timeStamp  | 是 | String(64) | C380BEC2BFD727A4B6845133519F3AD6 |签名|</p>
-<p><a href="https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=4_3">签名生成算法</a><br><a href="https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=4_2">时间戳规则</a><br><a href="https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=4_3">随机数生成算法</a></p>
-<p>网页内支付接口err_msg返回结果值说明:  </p>
-<p>|返回值|描述|<br>|ok|支付成功，仅在用户成功完成支付时返回|<br>|cancel|支付过程中，用户取消(可以统一处理为用户遇到错误或者主动放弃，不必细化区分)|<br>|fail|支付失败(可以统一处理为用户遇到错误或者主动放弃，不必细化区分)|</p>
-<h1 id="网页端调起支付API示例代码"><a href="#网页端调起支付API示例代码" class="headerlink" title="网页端调起支付API示例代码"></a>网页端调起支付API示例代码</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function onBridgeReady()&#123;</span><br><span class="line">        WeixinJSBridge.invoke(</span><br><span class="line">       &#39;getBrandWCPayRequest&#39;, &#123;</span><br><span class="line">           &quot;appId&quot; ： &quot;wx2421b1c4370ec43b&quot;,     &#x2F;&#x2F;公众号名称，由商户传入     </span><br><span class="line">           &quot;timeStamp&quot;：&quot; 1395712654&quot;,         &#x2F;&#x2F;时间戳，自1970年以来的秒数     </span><br><span class="line">           &quot;nonceStr&quot; ： &quot;e61463f8efa94090b1f366cccfbbb444&quot;, &#x2F;&#x2F;随机串     </span><br><span class="line">           &quot;package&quot; ： &quot;prepay_id&#x3D;u802345jgfjsdfgsdg888&quot;,     </span><br><span class="line">           &quot;signType&quot; ： &quot;MD5&quot;,         &#x2F;&#x2F;微信签名方式：     </span><br><span class="line">           &quot;paySign&quot; ： &quot;70EA570631E4BB79628FBCA90534C63FF7FADD89&quot; &#x2F;&#x2F;微信签名 </span><br><span class="line">       &#125;,</span><br><span class="line">       function(res)&#123;     </span><br><span class="line">           if (res.err_msg &#x3D;&#x3D; &quot;get_brand_wcpay_request:ok&quot;) &#123;</span><br><span class="line">                 alert(&quot;pay success&quot;);</span><br><span class="line">           &#125;</span><br><span class="line">           if (res.err_msg &#x3D;&#x3D; &quot;get_brand_wcpay_request:cancel&quot;) &#123;</span><br><span class="line">                 alert(&quot;pay cancel&quot;);</span><br><span class="line">           &#125;</span><br><span class="line">           if (res.err_msg &#x3D;&#x3D; &quot;get_brand_wcpay_request:fail&quot;) &#123;</span><br><span class="line">                 alert(&quot;pay failed&quot;);</span><br><span class="line">           &#125; </span><br><span class="line">       &#125;</span><br><span class="line">       ); </span><br><span class="line">       &#125;</span><br><span class="line">       if (typeof WeixinJSBridge &#x3D;&#x3D; &quot;undefined&quot;)&#123;</span><br><span class="line">           if( document.addEventListener )&#123;</span><br><span class="line">               document.addEventListener(&#39;WeixinJSBridgeReady&#39;, onBridgeReady, false);</span><br><span class="line">           &#125;else if (document.attachEvent)&#123;</span><br><span class="line">       document.attachEvent(&#39;WeixinJSBridgeReady&#39;, onBridgeReady); </span><br><span class="line">       document.attachEvent(&#39;onWeixinJSBridgeReady&#39;, onBridgeReady);</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;else&#123;</span><br><span class="line">          onBridgeReady();</span><br><span class="line">       &#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="后端代码剖析"><a href="#后端代码剖析" class="headerlink" title="后端代码剖析"></a>后端代码剖析</h1><h2 id="与支付H5页面交互类"><a href="#与支付H5页面交互类" class="headerlink" title="与支付H5页面交互类"></a>与支付H5页面交互类</h2><p><em>其中notify_url与设置详见下图</em><br>支付授权目录：<br>xzl.gxcm.com.cn/#/为iOS路径<br>xzl.gxcm.com.cn/#/course/为android路径<br>支付授权目录.png?nolink<br>微信支付设置：需要为测试人员设置白名单，否则无法支付<br>开发配置.png?nolink</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import com.*.CommonUtil;</span><br><span class="line">import com.*.MD5SignUtil;</span><br><span class="line">import com.*.PayUtil;</span><br><span class="line">import com.*.WeChatConnector;</span><br><span class="line">import org.springframework.ui.Model;</span><br><span class="line">import java.util.HashMap;</span><br><span class="line">import java.util.Map;</span><br><span class="line">import java.util.UUID;</span><br><span class="line"></span><br><span class="line">public class WechatPayService&#123;</span><br><span class="line"></span><br><span class="line">     private static Log log&#x3D; LogFactory.getLog(WechatPayService.class);</span><br><span class="line">     public String wechatPay(Model model, String openId, String price) throws Exception &#123;</span><br><span class="line">          String paternerKey &#x3D; &quot;demo123456demo123456demo123456de&quot;; &#x2F;&#x2F; 密钥，需登录微信支付平台获得</span><br><span class="line">          String appId &#x3D; WeChatConnector.getMpConfigStorage().getAppId(); &#x2F;&#x2F; 公众号名称，由商户传入</span><br><span class="line">          String timestamp &#x3D; System.currentTimeMillis() &#x2F; 1000 + &quot;&quot;;</span><br><span class="line">          String nonceStr &#x3D; UUID.randomUUID().toString().substring(0, 32);</span><br><span class="line">          String num &#x3D; (Double.parseDouble(price) * 100 + &quot;&quot;).substring(0, (Double.parseDouble(price) * 100 + &quot;&quot;).indexOf(&quot;.&quot;)); &#x2F;&#x2F; 对页面传入的价格进行处理</span><br><span class="line">          PayUtil payUtil &#x3D; new PayUtil();</span><br><span class="line">          &#x2F;&#x2F; get prepayid</span><br><span class="line">          Map map &#x3D; new HashMap();</span><br><span class="line">          map.put(&quot;appid&quot;, appId);</span><br><span class="line">          map.put(&quot;mch_id&quot;, &quot;1235171102&quot;); &#x2F;&#x2F; 商户号</span><br><span class="line">          map.put(&quot;nonce_str&quot;, nonceStr); &#x2F;&#x2F; 随机数</span><br><span class="line">          map.put(&quot;body&quot;, &quot;高校传媒&quot;); &#x2F;&#x2F; 产品名</span><br><span class="line">          map.put(&quot;out_trade_no&quot;, payUtil.orderNum());</span><br><span class="line">          map.put(&quot;total_fee&quot;, price); &#x2F;&#x2F; 总价，以“分”为单位</span><br><span class="line">          map.put(&quot;spbill_create_ip&quot;, &quot;127.0.0.1&quot;); &#x2F;&#x2F; request.getRemoteAddr()</span><br><span class="line">          map.put(&quot;notify_url&quot;, &quot;http:&#x2F;&#x2F;xzl.gxcm.com.cn&#x2F;wechat&#x2F;gitPay&quot;); &#x2F;&#x2F; 支付授权目录，设置见下图</span><br><span class="line">          map.put(&quot;trade_type&quot;, &quot;JSAPI&quot;); &#x2F;&#x2F; 支付接口类型</span><br><span class="line">          map.put(&quot;attach&quot;, courseId); &#x2F;&#x2F; 课程Id</span><br><span class="line">          map.put(&quot;openid&quot;, openId); &#x2F;&#x2F; 用户的openId</span><br><span class="line">          String paySign &#x3D; MD5SignUtil.sign(CommonUtil.FormatBizQueryParaMap(map), paternerKey);</span><br><span class="line">          map.put(&quot;sign&quot;, paySign); &#x2F;&#x2F; sign</span><br><span class="line">          String xml &#x3D; CommonUtil.ArrayToXml(map);</span><br><span class="line">          String prepayid &#x3D; payUtil.getPrepayid(xml);</span><br><span class="line"></span><br><span class="line">          &#x2F;&#x2F; h5 param</span><br><span class="line">          Map signMap &#x3D; new HashMap();</span><br><span class="line">          model.addAttribute(&quot;appId&quot;, appId);</span><br><span class="line">          model.addAttribute(&quot;timeStamp&quot;, timestamp);</span><br><span class="line">          model.addAttribute(&quot;package&quot;, &quot;prepay_id&#x3D;&quot; + prepayid);</span><br><span class="line">          model.addAttribute(&quot;nonceStr&quot;, nonceStr);</span><br><span class="line">          model.addAttribute(&quot;signType&quot;, &quot;MD5&quot;);</span><br><span class="line"></span><br><span class="line">          signMap.put(&quot;appId&quot;, appId);</span><br><span class="line">          signMap.put(&quot;timeStamp&quot;, timestamp);</span><br><span class="line">          signMap.put(&quot;package&quot;, &quot;prepay_id&#x3D;&quot; + prepayid);</span><br><span class="line">          signMap.put(&quot;signType&quot;, &quot;MD5&quot;);</span><br><span class="line">          signMap.put(&quot;nonceStr&quot;, nonceStr);</span><br><span class="line">          String paySignH5 &#x3D; MD5SignUtil.sign(CommonUtil.FormatBizQueryParaMap(signMap), paternerKey);</span><br><span class="line"></span><br><span class="line">          model.addAttribute(&quot;paySign&quot;, paySignH5);</span><br><span class="line">          String url &#x3D; String.format(&quot;checkout&#x2F;partials&#x2F;wechatPayForm&quot;, model);</span><br><span class="line"></span><br><span class="line">          return url;</span><br><span class="line">      &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="交互所需参数生成工具类"><a href="#交互所需参数生成工具类" class="headerlink" title="交互所需参数生成工具类"></a>交互所需参数生成工具类</h2><p>CommonUtil<br>HttpClientUtil<br>MD5SignUtil<br>MD5Util<br>MapKeyComparatorUtil<br>PayUtil </p>
-<h3 id="CommonUtil-java"><a href="#CommonUtil-java" class="headerlink" title="CommonUtil.java"></a>CommonUtil.java</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"> import java.util.*;</span><br><span class="line"></span><br><span class="line"> public class CommonUtil &#123;</span><br><span class="line"></span><br><span class="line"> &#x2F;&#x2F; 转换</span><br><span class="line"> public static String ArrayToXml(Map&lt;String, String&gt; arr) &#123;</span><br><span class="line"></span><br><span class="line">     String xml &#x3D; &quot;&lt;xml&gt;&quot;;</span><br><span class="line"></span><br><span class="line">     Iterator&lt;Map.Entry&lt;String, String&gt;&gt; iter &#x3D; arr.entrySet().iterator();</span><br><span class="line">     while (iter.hasNext()) &#123;</span><br><span class="line">         Map.Entry&lt;String, String&gt; entry &#x3D; iter.next();</span><br><span class="line">         String key &#x3D; entry.getKey();</span><br><span class="line">         String val &#x3D; entry.getValue();</span><br><span class="line">         xml +&#x3D; &quot;&lt;&quot; + key + &quot;&gt;&quot; + val + &quot;&lt;&#x2F;&quot; + key + &quot;&gt;&quot;;</span><br><span class="line">     &#125;</span><br><span class="line"></span><br><span class="line">     xml +&#x3D; &quot;&lt;&#x2F;xml&gt;&quot;;</span><br><span class="line">     return xml;</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> &#x2F;&#x2F; 字典排序</span><br><span class="line"> public static String FormatBizQueryParaMap(Map map) throws Exception &#123;</span><br><span class="line"></span><br><span class="line">  StringBuffer sb &#x3D; new StringBuffer();</span><br><span class="line">  if (map &#x3D;&#x3D; null || map.isEmpty()) &#123;</span><br><span class="line">      return null;</span><br><span class="line">  &#125;</span><br><span class="line">  Map&lt;String, String&gt; sortMap &#x3D; new TreeMap&lt;String, String&gt;(new MapKeyComparatorUtil());</span><br><span class="line">  sortMap.putAll(map);</span><br><span class="line">  Map&lt;String, String&gt; resultMap &#x3D; sortMap;</span><br><span class="line">  for (Map.Entry&lt;String, String&gt; entry : resultMap.entrySet()) &#123;</span><br><span class="line">      sb.append(entry.getKey() + &quot;&#x3D;&quot; + entry.getValue() + &quot;&amp;&quot;);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  return sb.toString().substring(0,sb.toString().length()-1);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="HttpClientUtil-java"><a href="#HttpClientUtil-java" class="headerlink" title="HttpClientUtil.java"></a>HttpClientUtil.java</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import org.apache.commons.httpclient.methods.PostMethod;</span><br><span class="line"></span><br><span class="line">public class HttpClientUtil &#123;</span><br><span class="line"></span><br><span class="line">  private static HttpClientUtil instance &#x3D; null;</span><br><span class="line"></span><br><span class="line">  private HttpClientUtil() &#123;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  public static HttpClientUtil getInstance() &#123;</span><br><span class="line">      if (instance &#x3D;&#x3D; null) &#123;</span><br><span class="line">          instance &#x3D; new HttpClientUtil();</span><br><span class="line">      &#125;</span><br><span class="line">      return instance;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  &#x2F;&#x2F; 发送 post请求</span><br><span class="line">  &#x2F;&#x2F; @param httpUrl 地址</span><br><span class="line">  public PostMethod postMethod(String httpUrl) &#123;</span><br><span class="line">      PostMethod postMethod&#x3D;new PostMethod(httpUrl);&#x2F;&#x2F; 创建httpPost</span><br><span class="line">      return postMethod;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="MD5SignUtil-java"><a href="#MD5SignUtil-java" class="headerlink" title="MD5SignUtil.java"></a>MD5SignUtil.java</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public class MD5SignUtil &#123;</span><br><span class="line"></span><br><span class="line">   public static String sign(String content, String key) throws Exception &#123;</span><br><span class="line">       String signStr &#x3D; content + &quot;&amp;key&#x3D;&quot; + key;</span><br><span class="line">       return MD5Util.MD5(signStr).toUpperCase();</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="MD5Util-java"><a href="#MD5Util-java" class="headerlink" title="MD5Util.java"></a>MD5Util.java</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import java.security.MessageDigest;</span><br><span class="line"></span><br><span class="line">public class MD5Util &#123;</span><br><span class="line"></span><br><span class="line">  public final static String MD5(String s) &#123;</span><br><span class="line">      char hexDigits[]&#x3D;&#123;&#39;0&#39;,&#39;1&#39;,&#39;2&#39;,&#39;3&#39;,&#39;4&#39;,&#39;5&#39;,&#39;6&#39;,&#39;7&#39;,&#39;8&#39;,&#39;9&#39;,&#39;A&#39;,&#39;B&#39;,&#39;C&#39;,&#39;D&#39;,&#39;E&#39;,&#39;F&#39;&#125;;</span><br><span class="line">      try &#123;</span><br><span class="line">          byte[] btInput &#x3D; s.getBytes();</span><br><span class="line">          MessageDigest mdInst &#x3D; MessageDigest.getInstance(&quot;MD5&quot;);</span><br><span class="line">          mdInst.update(btInput);</span><br><span class="line">          byte[] md &#x3D; mdInst.digest();</span><br><span class="line">          int j &#x3D; md.length;</span><br><span class="line">          char str[] &#x3D; new char[j * 2];</span><br><span class="line">          int k &#x3D; 0;</span><br><span class="line">          for (int i &#x3D; 0; i &lt; j; i++) &#123;</span><br><span class="line">              byte byte0 &#x3D; md[i];</span><br><span class="line">              str[k++] &#x3D; hexDigits[byte0 &gt;&gt;&gt; 4 &amp; 0xf];</span><br><span class="line">              str[k++] &#x3D; hexDigits[byte0 &amp; 0xf];</span><br><span class="line">          &#125;</span><br><span class="line">          return new String(str);</span><br><span class="line">      &#125; catch (Exception e) &#123;</span><br><span class="line">          e.printStackTrace();</span><br><span class="line">          return null;</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="MapKeyComparatorUtil-java"><a href="#MapKeyComparatorUtil-java" class="headerlink" title="MapKeyComparatorUtil.java"></a>MapKeyComparatorUtil.java</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import java.util.Comparator;</span><br><span class="line"></span><br><span class="line">public class MapKeyComparatorUtil implements Comparator&lt;String&gt; &#123;</span><br><span class="line"></span><br><span class="line"> @Override</span><br><span class="line"> public int compare(String o1, String o2) &#123;</span><br><span class="line">     return o1.compareTo(o2);</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="PayUtil-java"><a href="#PayUtil-java" class="headerlink" title="PayUtil.java"></a>PayUtil.java</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import org.apache.commons.httpclient.HttpClient;</span><br><span class="line">import org.apache.commons.httpclient.SimpleHttpConnectionManager;</span><br><span class="line">import org.apache.commons.httpclient.methods.PostMethod;</span><br><span class="line">import org.apache.commons.httpclient.params.HttpClientParams;</span><br><span class="line">import org.apache.commons.logging.Log;</span><br><span class="line">import org.apache.commons.logging.LogFactory;</span><br><span class="line">import org.codehaus.jettison.json.JSONObject;</span><br><span class="line">import java.io.IOException;</span><br><span class="line">import java.io.InputStream;</span><br><span class="line">import java.util.Random;</span><br><span class="line"></span><br><span class="line">public class PayUtil &#123;</span><br><span class="line"></span><br><span class="line">  private static Log log &#x3D; LogFactory.getLog(PayUtil.class);</span><br><span class="line">  public static String URL &#x3D; &quot;https:&#x2F;&#x2F;api.mch.weixin.qq.com&#x2F;pay&#x2F;unifiedorder&quot;;</span><br><span class="line"></span><br><span class="line">  public String getPrepayid(String xml) &#123;</span><br><span class="line">      log.warn(xml);</span><br><span class="line">      try &#123;</span><br><span class="line">          JSONObject jo &#x3D; getPrepayJson(xml);</span><br><span class="line">          JSONObject element &#x3D; jo.getJSONObject(&quot;xml&quot;);</span><br><span class="line">          String prepayid &#x3D; (element.get(&quot;prepay_id&quot;)).toString();</span><br><span class="line">          return prepayid.substring(1, prepayid.length() - 1);</span><br><span class="line">      &#125; catch (Exception e) &#123;</span><br><span class="line">          e.printStackTrace();</span><br><span class="line">      &#125;</span><br><span class="line">      return null;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  @SuppressWarnings(&quot;deprecation&quot;)</span><br><span class="line">  public JSONObject getPrepayJson(String xml) &#123;</span><br><span class="line">      HttpClient httpClient &#x3D; new HttpClient(new HttpClientParams(), new SimpleHttpConnectionManager(true));</span><br><span class="line">      InputStream is &#x3D; null;</span><br><span class="line">      PostMethod method &#x3D; null;</span><br><span class="line">      try &#123;</span><br><span class="line">          method &#x3D; HttpClientUtil.getInstance().postMethod(URL);</span><br><span class="line">          method.setRequestBody(xml);</span><br><span class="line">          method.getParams().setContentCharset(&quot;UTF-8&quot;); &#x2F;&#x2F; UTF-8</span><br><span class="line">          httpClient.executeMethod(method);</span><br><span class="line">          &#x2F;&#x2F;读取响应</span><br><span class="line">          is &#x3D; method.getResponseBodyAsStream();</span><br><span class="line">          JSONObject o &#x3D; XmlJsonUtil.xmlJSON(is);</span><br><span class="line">          return o;</span><br><span class="line">      &#125; catch (Exception e) &#123;</span><br><span class="line">          e.printStackTrace();</span><br><span class="line">      &#125; finally &#123;</span><br><span class="line">          if (method !&#x3D; null) &#123;</span><br><span class="line">              method.releaseConnection();</span><br><span class="line">          &#125;</span><br><span class="line">          if (is !&#x3D; null) &#123;</span><br><span class="line">              try &#123;</span><br><span class="line">                  is.close();</span><br><span class="line">              &#125; catch (IOException e1) &#123;</span><br><span class="line">                  e1.printStackTrace();</span><br><span class="line">              &#125;</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      return null;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  &#x2F;&#x2F; @return time&amp;randomNum</span><br><span class="line">  public String orderNum() &#123;</span><br><span class="line">      String chars &#x3D; &quot;0123456789&quot;;</span><br><span class="line">      String order &#x3D; System.currentTimeMillis() + &quot;&quot;;</span><br><span class="line">      String res &#x3D; &quot;&quot;;</span><br><span class="line">      for (int i &#x3D; 0; i &lt; 19; i++) &#123;</span><br><span class="line">          Random rd &#x3D; new Random();</span><br><span class="line">          res +&#x3D; chars.charAt(rd.nextInt(chars.length() - 1));</span><br><span class="line">      &#125;</span><br><span class="line">      order +&#x3D; res;</span><br><span class="line">      return order;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="支付成功发送模版消息"><a href="#支付成功发送模版消息" class="headerlink" title="支付成功发送模版消息"></a>支付成功发送模版消息</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; wechat shopping receipt</span><br><span class="line">&#x2F;&#x2F; 发送模版消息</span><br><span class="line">&#x2F;&#x2F; @param openId</span><br><span class="line">&#x2F;&#x2F; @param price</span><br><span class="line">public void sendShoppingReceipt(String openId, String price) &#123;</span><br><span class="line">  WxMpTemplateMessage wxMpTemplateMessage &#x3D; new WxMpTemplateMessage();</span><br><span class="line">  wxMpTemplateMessage.setToUser(openId);</span><br><span class="line">  wxMpTemplateMessage.setTemplateId(&quot;VTevmK1xd15sAlMPOmna1bXnh-l46Epw9DwrqHvkKVo&quot;); &#x2F;&#x2F; 模版ID</span><br><span class="line">  wxMpTemplateMessage.setUrl(&quot;bige.t.beeoz.com&#x2F;#&#x2F;owncourse&quot;);&#x2F;&#x2F; user center page</span><br><span class="line">  wxMpTemplateMessage.setTopColor(&quot;#173177&quot;);</span><br><span class="line">  wxMpTemplateMessage.getDatas().add(new WxMpTemplateData(&quot;first&quot;, &quot;购买成功&quot;, &quot;#173177&quot;));</span><br><span class="line">  wxMpTemplateMessage.getDatas().add(new WxMpTemplateData(&quot;product&quot;, &quot;在线课程&quot;, &quot;#173177&quot;));</span><br><span class="line">  wxMpTemplateMessage.getDatas().add(new WxMpTemplateData(&quot;price&quot;, price, &quot;#173177&quot;));</span><br><span class="line">  wxMpTemplateMessage.getDatas().add(new WxMpTemplateData(&quot;time&quot;, System.currentTimeMillis() + &quot;&quot;, &quot;#173177&quot;));</span><br><span class="line">  wxMpTemplateMessage.getDatas().add(new WxMpTemplateData(&quot;remark&quot;, &quot;如有疑问，请咨询公众号客服&quot;, &quot;#173177&quot;));</span><br><span class="line">  try &#123;</span><br><span class="line">      WeChatConnector.getMpService().templateSend(wxMpTemplateMessage);</span><br><span class="line">  &#125; catch (WxErrorException e) &#123;</span><br><span class="line">      e.printStackTrace();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>note</category>
-      </categories>
-      <tags>
-        <tag>wechat</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>版本命名规范</title>
-    <url>/2018/03/07/%E7%89%88%E6%9C%AC%E5%91%BD%E5%90%8D/</url>
-    <content><![CDATA[<p>上家公司在发版时对tag的命名一直不是很规范，参考了各大网站及博客上的说明，做个笔记。</p>
-<hr>
-<h3 id="版本号格式："><a href="#版本号格式：" class="headerlink" title="版本号格式："></a>版本号格式：</h3><p>常见格式：<code>[name].A.B.C-[state]</code><br>name：可选字段,一般为 v,表示 version；<br>A：Major主版本号，一般当软件整体重写，或当API兼容性变化时递增；<br>B：Minor次版本号，当增加功能时（API兼容性不变化）递增；<br>C：Patch修订号，Bug修复时（API兼容性不变化）递增；<br>state：可选字段,表示版本状态，用alpha等修饰词</p>
-<hr>
-<h3 id="Detail"><a href="#Detail" class="headerlink" title="Detail"></a>Detail</h3><ul>
-<li><p>A，B，C为非负整数，且不得包含前导0，按数值递增。<br>🌰<code>1.2.0-&gt;1.3.0-&gt;1.4.0</code></p>
-</li>
-<li><p>0.B.C表示处于开发阶段，API不稳定，1.0.0表明已有稳定版本API</p>
-</li>
-<li><p>当API兼容性变化时，A++，B=C=0;</p>
-</li>
-<li><p>当功能新增或API标记为deprecated弃用时，B++，C=0；</p>
-</li>
-<li><p>当Bug Fix时，C++；</p>
-</li>
-<li><p>先行版本号（Pre-release）表示该版本不稳定，可能有兼容问题。<br>格式<code>1.0.0.[a-c][正整数]</code><br>🌰<code>1.0.0.a3</code> <code>1.0.0.b89</code> <code>1.0.0.c1999008</code></p>
-</li>
-<li><p>开发版本号多用于CI-CD，格式<code>A.B.C.dev[正整数]</code>。<br>🌰<code>1.0.1.dev5</code></p>
-</li>
-<li><p>版本号排序规则：</p>
-<ul>
-<li>主版本号，次版本号，修订号<br>🌰<code>1.0.0&lt;1.0.1&lt;1.1.1&lt;2.0.0</code></li>
-<li>对先行版本号与开发版本号<br>🌰<code>1.0.0.a10&lt;1.0.0</code> <code>2.1.0.dev2&lt;2.1.0</code></li>
-<li>存在字母，按ASCII码排序<br>🌰<code>1.0.0.a10&lt;1.0.0.b10</code></li>
-</ul>
-</li>
-</ul>
-<p>Tip:版本一经发布，不得修改！</p>
-<hr>
-<h3 id="修饰词"><a href="#修饰词" class="headerlink" title="修饰词"></a>修饰词</h3><ul>
-<li><code>alpha</code> 内部版本</li>
-<li><code>beta</code> 测试版</li>
-<li><code>demo</code> 演示版</li>
-<li><code>enhance</code> 增强版</li>
-<li><code>free</code> 自由版</li>
-<li><code>full version</code> 完整版，正式版</li>
-<li><code>lts</code> 长期维护版</li>
-<li><code>release</code> 发行版</li>
-<li><code>rc</code> 即将正式发布</li>
-<li><code>standard</code> 标准版</li>
-<li><code>ultimate</code> 旗舰版</li>
-<li><code>upgrade</code> 升级版</li>
-</ul>
-<hr>
-<p>参考：</p>
-<ul>
-<li><a href="https://semver.org/lang/zh-CN/">语义化版本 2.0.0</a></li>
-<li><a href="https://segmentfault.com/a/1190000011368506">理解版本命名及限定规则</a></li>
-<li>《软件工程》第十版 第25章 ISBN：9787111589105</li>
-</ul>
-]]></content>
-      <categories>
-        <category>note</category>
-      </categories>
-      <tags>
-        <tag>version</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>树莓派温湿度监督玩具</title>
-    <url>/2018/05/10/%E6%A0%91%E8%8E%93%E6%B4%BE%E6%B8%A9%E6%B9%BF%E5%BA%A6%E7%9B%91%E7%9D%A3%E7%8E%A9%E5%85%B7/</url>
-    <content><![CDATA[<p>基于 Rasperry Pi 3B and Arduino  </p>
-<p>公司为了防止夏天机房温度过高，需要一个温度监测工具，其实市面上的小米温度监测只要35块，但是想着可自定义扩展的需要，就做了一个从硬件到软件的温湿度监测系统，好在用了一个周末做出来了，考虑到之后还要增加电压警告等功能，选型如下：</p>
-<hr>
-<ul>
-<li>开发板：（来自万能的大淘宝）<ul>
-<li>Rasberry Pi 3B：中央控制服务器，负责与互联网的通信、采样存储 Arduino 上报的状态数据、提供/调用API以方便用其他终端控制。</li>
-<li>Arduino UNO：负责传感器采样，和 RPi 进行通信。</li>
-</ul>
-</li>
-<li>温度传感器：DHT22</li>
-<li>语言：Python3,Java8</li>
-<li>存储：Mysql,Redis</li>
-</ul>
-<h2 id="Arduino"><a href="#Arduino" class="headerlink" title="Arduino"></a>Arduino</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#include &quot;DHT.h&quot;</span><br><span class="line">DHT dht(2, DHT22);</span><br><span class="line"></span><br><span class="line">void setup()</span><br><span class="line">&#123;</span><br><span class="line">  Serial.begin(9600);</span><br><span class="line">  dht.begin();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void loop()</span><br><span class="line">&#123;</span><br><span class="line">  float humidity &#x3D; dht.readHumidity();</span><br><span class="line">  float temperature &#x3D; dht.readTemperature();</span><br><span class="line">  Serial.print(&quot;Humidity: &quot;);</span><br><span class="line">  Serial.print(humidity);</span><br><span class="line">  Serial.print(&quot; &quot;);</span><br><span class="line">  Serial.print(&quot;Temperature: &quot;);</span><br><span class="line">  Serial.println(temperature);</span><br><span class="line">  delay(2000);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<hr>
-<h2 id="RasberryPi-3B"><a href="#RasberryPi-3B" class="headerlink" title="RasberryPi 3B"></a>RasberryPi 3B</h2><h3 id="安装系统"><a href="#安装系统" class="headerlink" title="安装系统"></a>安装系统</h3><p>镜像:<em>raspbian-stretch-lite</em><br>microSD卡:<em>16G</em>，推荐8G以上</p>
-<ul>
-<li><p>将SD卡格式化:(Mac)磁盘工具–&gt;抹掉–&gt;MS-DOS(FAT)–&gt;抹掉</p>
-</li>
-<li><p>终端**<em>df-h**</em>查看挂载，SD 卡假设为 /dev/disk2s1</p>
-</li>
-<li><p>卸载 SD 卡**<em>diskutil unmount /dev/disk2s1**</em></p>
-</li>
-<li><p><strong><em>diskutil list</em></strong> 确认 /dev/disk2 下的 disk2</p>
-</li>
-<li><p><a href="https://www.raspberrypi.org/downloads/">官网</a>下载镜像，写入 SD 卡*<strong>sudo dd bs=4m if=本机镜像路径 of=/dev/disk2***查看进度可以另起终端 *</strong>sudo kill -INFO $(pgrep ^dd)***</p>
-</li>
-<li><p>由于树莓派默认不开启 ssh，写入成功后在 /boot/ 创建无后缀的文件名为 ssh 的文件</p>
-</li>
-<li><p>设置自动连接 Wi-Fi:在 /boot/ 下创建 wpa_supplicant.conf</p>
-  <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">country&#x3D;CN</span><br><span class="line">ctrl_interface&#x3D;DIR&#x3D;&#x2F;var&#x2F;run&#x2F;wpa_supplicant 	GROUP&#x3D;netdev</span><br><span class="line">update_config&#x3D;1</span><br><span class="line">network&#x3D;&#123;</span><br><span class="line">   	scan_ssid&#x3D;1#SSID被隐藏时设置</span><br><span class="line">   	ssid&#x3D;&quot;TaiGe&quot;#Wi-Fi名</span><br><span class="line">   	psk&#x3D;&quot;HaoyunHu888&quot;#Wi-Fi密码</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li><p>弹出SD卡**<em>diskutil unmountDisk /dev/disk2**</em></p>
-</li>
-</ul>
-<p>以上，RasberryPi的系统安装完成，可以将SD卡插入开发版上电开机了</p>
-<h3 id="登录系统"><a href="#登录系统" class="headerlink" title="登录系统"></a>登录系统</h3><h5 id="SSH"><a href="#SSH" class="headerlink" title="SSH"></a>SSH</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ssh pi@ip</span><br><span class="line">default password: raspberry</span><br></pre></td></tr></table></figure>
-<p>通过路由器查看树莓派的当前ip:</p>
-<ul>
-<li><p>打开网页**<em>192.168.1.1**</em>，登录系统</p>
-</li>
-<li><p>状态/用户侧信息/以太网接口信息/，找到客户端名称为raspberrypi的IP地址<br>关机**<em>sudo shutdown -h now**</em>，重新上电后会自动开机</p>
-</li>
-<li><p><a href="http://www.lugick.com/2018/01/30/raspberry-pi-init/">系统安装参考</a></p>
-</li>
-<li><p><a href="https://blog.csdn.net/wongnoubo/article/details/79628313">查看rpiIP参考</a></p>
-</li>
-</ul>
-<hr>
-<h2 id="RaspberryPi读取Arduino数据"><a href="#RaspberryPi读取Arduino数据" class="headerlink" title="RaspberryPi读取Arduino数据"></a>RaspberryPi读取Arduino数据</h2><h3 id="安装Python3"><a href="#安装Python3" class="headerlink" title="安装Python3"></a>安装Python3</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo aptitude install python-dev</span><br></pre></td></tr></table></figure>
-
-<h3 id="安装Python的GPIO模块"><a href="#安装Python的GPIO模块" class="headerlink" title="安装Python的GPIO模块"></a>安装Python的GPIO模块</h3><p>用于控制LED、电机等</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo apt-get install rpi.gpio</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h3 id="安装Serial"><a href="#安装Serial" class="headerlink" title="安装Serial"></a>安装Serial</h3><p>用于串口通信及USB通信**<em>sudo apt-get install python-serial**</em></p>
-<h3 id="安装串口调试程序"><a href="#安装串口调试程序" class="headerlink" title="安装串口调试程序"></a>安装串口调试程序</h3><p>minicom是linux平台串口调试工具，可以用它来读取Arduino通过USB串口发送的传感器数值。</p>
-<ul>
-<li><p>在RaspberryPi上安装minicom：**<em>sudo apt-get install minicom**</em></p>
-</li>
-<li><p>配置minicom：</p>
-</li>
-<li><p>minicom启动：**<em>minicom -b 9600 -D /dev/ttyACM0**</em></p>
-<ul>
-<li>-b代表波特率</li>
-<li>-D代表端口</li>
-<li>/dev/ttyACM0 代表打开与Arduino相连的端口</li>
-</ul>
-</li>
-</ul>
-<h3 id="Python打印数据"><a href="#Python打印数据" class="headerlink" title="Python打印数据"></a>Python打印数据</h3><p>show.py</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> serial</span><br><span class="line">ser = serial.Serial(<span class="string">&#x27;/dev/ttyACM0&#x27;</span>,<span class="number">9600</span>)</span><br><span class="line">info = ser.readline()</span><br><span class="line"><span class="keyword">while</span> info:</span><br><span class="line">    print(info)</span><br><span class="line">    info = ser.readline()</span><br></pre></td></tr></table></figure>
-
-<p>Python调用http API<br>安装requests<br>**<em>sudo pip install requests**</em></p>
-<p>后台运行py脚本<br>**<em>nohup python api.py &amp;**</em></p>
-]]></content>
-      <tags>
-        <tag>raspberry</tag>
-        <tag>arduino</tag>
       </tags>
   </entry>
 </search>
